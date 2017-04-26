@@ -1,2 +1,2 @@
 # vimwiki
-my wikis
+My Vimwikis
