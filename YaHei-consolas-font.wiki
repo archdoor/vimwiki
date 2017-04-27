@@ -1,0 +1,12 @@
+
+consolas编程字体安装：
+{{{
+下载：YaHei.Consolas.rar
+解压：YaHei.Consolas.ttf
+sudo mkdir /usr/share/fonts/consolas
+sudo cp YaHei.Consolas.ttf /usr/share/fonts/consolas
+cd /usr/share/fonts/consolas
+sudo mkfontscale
+sudo mkfontdir
+sudo fc-cache -fv
+}}}
