@@ -2,7 +2,9 @@
 	1. 使用mount挂载
 {{{
 mkdir ~/windows
-sudo mount -t cifs -o username=liujuntao,passwd=share //172.16.0.158/linux_share ~/windows
+sudo mount -t cifs -o username=name,passwd=123 //192.168.0.158/linux_share ~/windows
+或者
+sudo mount -t smbfs -o username=name,passwd=123 //192.168.0.158/linux_share ~/windows
 
 若要永久有效，编辑/etc/fstab:
 //172.16.0.158/linux_share /home/jett/windows cifs defaults,username=liujuntao,passwd=liujuntao 0 2
