@@ -1,0 +1,14 @@
+== linux访问windows共享文件夹： ==
+	1. 使用mount挂载
+{{{
+mkdir ~/windows
+sudo mount -t cifs -o username=liujuntao,passwd=share //172.16.0.158/linux_share ~/windows
+
+若要永久有效，编辑/etc/fstab:
+//172.16.0.158/linux_share /home/jett/windows cifs defaults,username=liujuntao,passwd=liujuntao 0 2
+}}}
+	2. 使用samba连接
+{{{
+安装smbclient
+smbclient --user=name //192.168.0.158/linux_share
+}}}
