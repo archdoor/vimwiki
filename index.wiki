@@ -10,4 +10,5 @@
 
 
 ==== list of todo items ====
+	* [ ] install archlinux with wireless network
 	* [ ] C++ Primer Plus（第6版）
