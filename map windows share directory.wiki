@@ -1,14 +1,25 @@
 == linux访问windows共享文件夹： ==
 	1. 使用mount挂载
 {{{
-mkdir ~/windows
-sudo mount -t cifs -o username=name,password=123 //192.168.0.158/linux_share ~/windows
-或者
-sudo mount -t smbfs -o username=name,password=123 //192.168.0.158/linux_share ~/windows
-
-若要永久有效，编辑/etc/fstab:
-//172.16.0.158/linux_share /home/jett/windows cifs defaults,username=liujuntao,passwd=liujuntao 0 2
-}}}
+1. 挂载成root用户：
+	mkdir ~/windows
+	sudo mount -t cifs -o username=name,password=123 //192.168.0.158/linux_share ~/windows
+	或者
+	sudo mount -t smbfs -o username=name,password=123 //192.168.0.158/linux_share ~/windows
+	
+	若要永久有效，编辑/etc/fstab:
+	//172.16.0.158/linux_share /home/jett/windows cifs defaults,username=liujuntao,passwd=liujuntao 0 2
+	
+2. 挂载成非root用户：
+	在/etc/passwd文件中查看用户的uid,gid
+	mkdir ~/windows
+	sudo mount -t cifs -o username=name,password=123,uid=100,gid=100 //192.168.0.158/linux_share ~/windows
+	或者
+	sudo mount -t smbfs -o username=name,password=123,uid=100,gid=100 //192.168.0.158/linux_share ~/windows
+	
+	若要永久有效，编辑/etc/fstab:
+	//172.16.0.158/linux_share /home/jett/windows cifs defaults,username=liujuntao,passwd=liujuntao,uid=100,gid=100 0 2
+	}}}
 	2. 使用samba连接
 {{{
 安装smbclient
