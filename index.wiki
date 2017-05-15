@@ -10,5 +10,15 @@
 
 
 ==== list of todo items ====
-	* [ ] install archlinux with wireless network
-	* [ ] C++ Primer Plus（第6版）
+	* [ ] 无线安装archlinux
+	* [ ] 汇编语言
+		* [ ] 汇编语言 王爽
+		* [ ] 80x86汇编语言程序设计教程
+	* [ ] C语言
+		* [ ] C语言入门经典
+		* [ ] Primer Plus
+		* [ ] C陷阱与缺陷
+		* [ ] C和指针
+		* [ ] C专家编程
+	* [ ] C++语言
+		* [ ] C++ Primer Plus（第6版）
