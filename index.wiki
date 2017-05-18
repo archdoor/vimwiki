@@ -1,11 +1,11 @@
- = MY VIMWIKIS =
-	1. [[VIM用户配置]]
-	2. [[VIMWIKI帮助文档]]
-	3. [[Pro_Git]]
-	4. [[数据结构（C语言版）]]
-	5. [[C++ Primer Plus（第6版）]]
-	6. [[ArchLinux]]
-	7. [[gnuplot绘图工具]]
+ === archdoor.github.io ===
+	1. [[vimrc]]
+	2. [[vimwiki-doc]]
+	3. [[pro-git]]
+	4. [[data-struct]]
+	5. [[cpp-primer-plus-6]]
+	6. [[archlinux]]
+	7. [[gnuplot-doc]]
 
 
 

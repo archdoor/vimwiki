@@ -1,4 +1,4 @@
-= ArchLinux =
+=== ArchLinux ===
 
 	1. install-archlinux
 	2. OpenVpn
