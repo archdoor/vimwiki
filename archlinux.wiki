@@ -1,6 +1,6 @@
 === ArchLinux ===
 
-	1. install-archlinux
+	1. [[installation]]
 	2. OpenVpn
 	3. [[YaHei-consolas-font]]
 	4. [[map windows share directory]]

@@ -1,10 +1,10 @@
  === archdoor.github.io ===
-	1. [[vimrc]]
-	2. [[vimwiki-doc]]
-	3. [[pro-git]]
-	4. [[data-struct]]
-	5. [[cpp-primer-plus-6]]
-	6. [[archlinux]]
+	1. [[archlinux]]
+	2. [[vimrc]]
+	3. [[vimwiki-doc]]
+	4. [[pro-git]]
+	5. [[data-struct]]
+	6. [[cpp-primer-plus-6]]
 	7. [[gnuplot-doc]]
 
 

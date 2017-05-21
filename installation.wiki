@@ -1,0 +1,166 @@
+==== Archlinux-installaton ====
+	1. 更新系统时钟
+{{{
+timedatectl set-ntp true
+}}}
+	2. 磁盘分区
+{{{
+分区规划：/:30G  /boot:200M  swap:10G  /home:剩余
+n +30G		(/dev/sda1)
+n +200M		(/dev/sda2)
+n +10G		(/dev/sda3)
+n ..		(/dev/sda4)
+}}}
+	3. 格式化分区
+{{{
+磁盘分区：
+mkfs.ext4 /dev/sda1[sda3 sda4]
+交换分区：
+mkswap /dev/sda2
+swapon /dev/sda2
+}}}
+	4. 挂载文件系统
+{{{
+mount /dev/sda1 /mnt
+
+mkdir /mnt/boot
+mount /dev/sda3 /mnt/boot
+
+mkdir /mnt/home
+mount /dev/sda4 /mnt/home
+}}}
+	5. 安装基本程序组
+{{{
+修改文件：/etc/pacman.d/mirrorlist (把所有中国的源地址移到最前面)
+pacstrap /mnt base
+}}}
+	6. 生成磁盘挂载信息文件fstab，便于开机自动挂载，避免再次手动挂载(步骤4)
+{{{
+genfstab -U /mnt >> /mnt/etc/fstab
+}}}
+	7. 以root用户配置新系统
+{{{
+arch-chroot /mnt
+}}}
+		1. 时区配置
+{{{
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+}}}
+		2. 语言环境配置
+{{{
+修改文件：/etx/locale.gen: 去注释 en_US.UTF-8 UTF-8 这一行
+环境生成：locale-gen
+配置全局环境：
+	编辑文件 /etc/locale.conf 添加 LANG=en_US.UTF-8
+}}}
+		3. 系统名称配置
+{{{
+/etc/hostname: ArchLinux
+}}}
+		4. 系统名称与IP对应（局域网中的域名）
+{{{
+/etc/hosts: 127.0.1.1 ArchLinux.localdomain ArchLinux
+}}}
+		5. 网络配置
+{{{
+pacman -S networkmanager
+pacman -S network-manager-applet
+pacman -S xfce4-notifyd
+pacman -S gnome-keyring
+pacman -S dialog
+
+systemctl enable NetworkManager
+}}}
+		6. 用户配置
+{{{
+修改root密码： passwd
+添加用户：useradd -m -g users -s /bin/bash jett
+修改jett密码： passwd jett
+
+pacman -S sudo
+pacman -S bash-completion
+
+/etc/sudoers：jett ALL=(ALL) ALL
+}}}
+		7. 引导程序制作
+{{{
+pacman -S grub-bios
+pacman -S intel-ucode
+
+grub-install --recheck /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+}}}
+		8. 退出系统配置
+{{{
+exit
+umount -R /mnt
+reboot
+}}}
+	8. 以root用户重新登录后，安装桌面环境
+{{{
+pacman -S xfce4
+pacman -S xfce4-goodies
+pacman -S xorg
+pacman -S xorg-utils
+pacman -S xorg-server-utils
+pacman -S xorg-apps
+{显卡驱动：pacman -S xf86-videl-intel，经安装，不需要该步骤}
+}}}
+	9. 桌面环境登录配置文件
+{{{
+两个文件：.xserverrc .xinitrc (每个用户目录中都要有这两个文件，所以要拷贝一份到非root用户目录下)
+
+.xserverrc:
+#!/bin/sh
+exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VINR
+
+.xinitrc:
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+修改.xinitrc：exec startxfce4 (注释掉最后一行的exec)
+}}}
+	10. 登录管理器配置
+{{{
+pacman -S slim
+systemctrl enable slim.service
+}}}
+	11. 登录桌面环境
+{{{
+reboot
+登录相应的用户即可
+}}}
+	12. 音频驱动安装
+{{{
+pacman -S alsa-utils
+pacman -S alsa-firmware
+pacman -S alsa-plugins
+
+音量调节快捷键设置：
+升音：amixer set Master 5%+
+降音：amixer set Master 5%-
+静音：amixer set Master toggle
+}}}
+	13. 中文输入法安装
+{{{
+配置cn软件源：/etc/pacman.conf:
+[archlinuxcn]
+SigLevel = Optional TrustAll
+Server = http://mirrors.ustc.edu.cn/archlinuxcn/$arch
+
+pacman -Syy
+pacman -S archlinuxcn-keyring
+
+输入法管理器：
+pacman -S fcitx-im
+pacman -S fcitx-configtool
+搜狗拼音输入法：
+pacman -S fcitx-sogoupinyin
+}}}
+	14. 浏览器安装
+{{{
+中文字体安装：
+pacman -S adobe-source-han-sans-cn-fonts
+
+chromium浏览器：
+pacman -S chromium
+pacman -S pepper-flash
+}}}
