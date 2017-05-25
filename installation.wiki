@@ -1,78 +1,98 @@
 ==== Archlinux-installaton ====
 
 	1. _*若使用WIFI，则需先配置无线链接：*_
-{{{
+		{{{
 查看网络设备(wifi一般以wlp开头)：ip link
 使用slp5s0设备扫描WIFI：iw dev wlp5s0 scan | less
 查看是否可以链接：wpa_supplicant -i wlp5s0 -c <(wpa_passphrase "wifi-name" "wifi-password")
 如果链接成功，则后台运行：wpa_supplicant -B -i wlp5s0 -c <(wpa_passphrase "wifi-name" "wifi-password")
 分配IP：dhcpcd wlp5s0
-}}}
-
+		}}}
 	2. 更新系统时钟
-{{{
+		{{{
 timedatectl set-ntp true
-}}}
-	3. 磁盘分区
-{{{
-分区规划：/:30G  /boot:200M  swap:10G  /home:剩余
-n +30G		(/dev/sda1)
-n +200M		(/dev/sda2)
-n +10G		(/dev/sda3)
-n ..		(/dev/sda4)
-}}}
+		}}}
+	3. 磁盘分区（假设硬盘256G）
+		a) bios
+			{{{
+分区规划：swap:10G  /:剩余
+fdisk /dev/sda
+	n +246G		(/dev/sda1)
+	n ..		(/dev/sda2)
+			}}}
+		b) uefi
+			{{{
+分区规划：esp:300M  swap:10G  /:剩余
+parted /dev/sda	
+mklabel gpt
+mkpart primary 1 300M	(/dev/sda1)
+mkpart primary 300M 11G	(/dev/sda2)
+mkpart primary 11G -1	(/dev/sda3)
+			}}}
 	4. 格式化分区
-{{{
+		a) bios
+			{{{
 磁盘分区：
-mkfs.ext4 /dev/sda1[sda3 sda4]
+mkfs.ext4 /dev/sda1
 交换分区：
 mkswap /dev/sda2
 swapon /dev/sda2
-}}}
+			}}}
+		b) uefi
+			{{{
+ESP分区：
+mkfs.vfat -F32 /dev/sda1
+交换分区：
+mkswap /dev/sda2
+swapon /dev/sda2
+磁盘分区：
+mkfs.ext4 /dev/sda3
+			}}}
 	5. 挂载文件系统
-{{{
+		a) bios
+			{{{
 mount /dev/sda1 /mnt
-
-mkdir /mnt/boot
-mount /dev/sda3 /mnt/boot
-
-mkdir /mnt/home
-mount /dev/sda4 /mnt/home
-}}}
+			}}}
+		b) uefi
+			{{{
+mount /dev/sda3 /mnt
+mkdir -p /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+			}}}
 	6. 安装基本程序组
-{{{
+		{{{
 修改文件：/etc/pacman.d/mirrorlist (把所有中国的源地址移到最前面)
 pacstrap /mnt base
-}}}
+		}}}
 	7. 生成磁盘挂载信息文件fstab，便于开机自动挂载，避免再次手动挂载(步骤4)
-{{{
+		{{{
 genfstab -U /mnt >> /mnt/etc/fstab
-}}}
+		}}}
 	8. 以root用户配置新系统
-{{{
+		{{{
 arch-chroot /mnt
-}}}
-		1. 时区配置
-{{{
+		}}}
+		a) 时区配置
+			{{{
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-}}}
-		2. 语言环境配置
-{{{
+			}}}
+		b) 语言环境配置
+			{{{
 修改文件：/etc/locale.gen: 去注释 en_US.UTF-8 UTF-8 以及 zh_CH**的中文编码 这几行
 环境生成：locale-gen
 配置全局环境：
 	编辑文件 /etc/locale.conf 添加 LANG=en_US.UTF-8(也可设置为中文环境)
-}}}
-		3. 系统名称配置
-{{{
+			}}}
+		c) 系统名称配置
+			{{{
 /etc/hostname: ArchLinux
-}}}
-		4. 系统名称与IP对应（局域网中的域名）
-{{{
+			}}}
+		d) 系统名称与IP对应（局域网中的域名）
+			{{{
 /etc/hosts: 127.0.1.1 ArchLinux.localdomain ArchLinux
-}}}
-		5. 网络配置
-{{{
+			}}}
+		e) 网络配置
+			{{{
 pacman -S networkmanager
 pacman -S network-manager-applet
 pacman -S xfce4-notifyd
@@ -80,9 +100,9 @@ pacman -S gnome-keyring
 pacman -S dialog
 
 systemctl enable NetworkManager
-}}}
-		6. 用户配置
-{{{
+			}}}
+		f) 用户配置
+			{{{
 修改root密码： passwd
 添加用户：useradd -m -g users -s /bin/bash jett
 修改jett密码： passwd jett
@@ -91,23 +111,33 @@ pacman -S sudo
 pacman -S bash-completion
 
 /etc/sudoers：jett ALL=(ALL) ALL
-}}}
-		7. 引导程序制作
-{{{
-pacman -S grub-bios
+			}}}
+		g) 引导程序制作
+			a) bios
+				{{{
+pacman -S grub
 pacman -S intel-ucode
 
 grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
-}}}
-		8. 退出系统配置
-{{{
+				}}}
+			b) uefi
+			{{{
+pacman -S grub
+pacman -S intel-ucode
+pacman -S efibootmgr
+
+grub-install --efi-directory=/boot/efi --bootloader-id=arch-grub --recheck
+grub-mkconfig -o /boot/grub/grub.cfg
+			}}}
+		h) 退出系统配置
+			{{{
 exit
 umount -R /mnt
 reboot
-}}}
+			}}}
 	9. 以root用户重新登录后，安装桌面环境
-{{{
+		{{{
 如果是wifi，则先需要链接网络：
 nmcli device wifi connect wifi-name password wifi-password
 
@@ -118,9 +148,9 @@ pacman -S xorg-utils
 pacman -S xorg-server-utils
 pacman -S xorg-apps
 {显卡驱动：pacman -S xf86-videl-intel，经安装，不需要该步骤}
-}}}
+		}}}
 	10. 桌面环境登录配置文件
-{{{
+		{{{
 两个文件：.xserverrc .xinitrc (每个用户目录中都要有这两个文件，所以要拷贝一份到非root用户目录下)
 
 .xserverrc:
@@ -130,19 +160,19 @@ exec /usr/bin/Xorg -nolisten tcp "$@" vt$XDG_VINR
 .xinitrc:
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
 修改.xinitrc：exec startxfce4 (注释掉最后一行的exec)
-}}}
+		}}}
 	11. 登录管理器配置
-{{{
+		{{{
 pacman -S slim
 systemctrl enable slim.service
-}}}
+		}}}
 	12. 登录桌面环境
-{{{
+		{{{
 reboot
 登录相应的用户即可
-}}}
+		}}}
 	13. 音频驱动安装
-{{{
+		{{{
 pacman -S alsa-utils
 pacman -S alsa-firmware
 pacman -S alsa-plugins
@@ -151,9 +181,9 @@ pacman -S alsa-plugins
 升音：amixer set Master 5%+
 降音：amixer set Master 5%-
 静音：amixer set Master toggle
-}}}
+		}}}
 	14. 中文输入法安装
-{{{
+		{{{
 配置cn软件源：/etc/pacman.conf:
 [archlinuxcn]
 SigLevel = Optional TrustAll
@@ -167,13 +197,13 @@ pacman -S fcitx-im
 pacman -S fcitx-configtool
 搜狗拼音输入法：
 pacman -S fcitx-sogoupinyin
-}}}
+		}}}
 	15. 浏览器安装
-{{{
+		{{{
 中文字体安装：
 pacman -S adobe-source-han-sans-cn-fonts
 
 chromium浏览器：
 pacman -S chromium
 pacman -S pepper-flash
-}}}
+		}}}
