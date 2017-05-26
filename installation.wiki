@@ -17,6 +17,7 @@ timedatectl set-ntp true
 			{{{
 分区规划：swap:10G  /:剩余
 fdisk /dev/sda
+重新建立MBR：o
 	n +246G		(/dev/sda1)
 	n ..		(/dev/sda2)
 			}}}
@@ -24,10 +25,16 @@ fdisk /dev/sda
 			{{{
 分区规划：esp:300M  swap:10G  /:剩余
 parted /dev/sda	
-mklabel gpt
-mkpart primary 1 300M	(/dev/sda1)
-mkpart primary 300M 11G	(/dev/sda2)
-mkpart primary 11G -1	(/dev/sda3)
+建立gpt分区表：
+	mklabel gpt
+建立ESP分区：
+	mkpart primary 1 300M	(/dev/sda1)
+设定ESP分区标志：boot
+	set 1 boot on
+建立交换分区：
+	mkpart primary 300M 11G	(/dev/sda2)
+建立linux分区：
+	mkpart primary 11G -1	(/dev/sda3)
 			}}}
 	4. 格式化分区
 		1. bios
@@ -57,7 +64,7 @@ mount /dev/sda1 /mnt
 			{{{
 mount /dev/sda3 /mnt
 mkdir -p /mnt/boot/efi
-mount /dev/sda1 /mnt/boot/efi
+mount -t vfat /dev/sda1 /mnt/boot/efi
 			}}}
 	6. 安装基本程序组
 		{{{
@@ -127,8 +134,15 @@ pacman -S grub
 pacman -S intel-ucode
 pacman -S efibootmgr
 
-grub-install --efi-directory=/boot/efi --bootloader-id=arch-grub --recheck
+modprobe dm-mod
+
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch_grub --recheck --debug
+
+pacman -S os-prober
+
 grub-mkconfig -o /boot/grub/grub.cfg
+
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 			}}}
 		8. 退出系统配置
 			{{{
