@@ -1,4 +1,4 @@
-=== ArchLinux ===
+ === ArchLinux ===
 
 	1. [[installation]]
 	2. OpenVpn

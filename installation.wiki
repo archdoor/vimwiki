@@ -1,6 +1,6 @@
-==== Archlinux-installaton ====
+ ==== Archlinux-installaton ====
 
-	1. _*若使用WIFI，则需先配置无线链接：*_
+	1. 若使用WIFI，则需先配置无线链接
 		{{{
 查看网络设备(wifi一般以wlp开头)：ip link
 使用slp5s0设备扫描WIFI：iw dev wlp5s0 scan | less
@@ -13,14 +13,14 @@
 timedatectl set-ntp true
 		}}}
 	3. 磁盘分区（假设硬盘256G）
-		a) bios
+		1. bios
 			{{{
 分区规划：swap:10G  /:剩余
 fdisk /dev/sda
 	n +246G		(/dev/sda1)
 	n ..		(/dev/sda2)
 			}}}
-		b) uefi
+		2. uefi
 			{{{
 分区规划：esp:300M  swap:10G  /:剩余
 parted /dev/sda	
@@ -30,7 +30,7 @@ mkpart primary 300M 11G	(/dev/sda2)
 mkpart primary 11G -1	(/dev/sda3)
 			}}}
 	4. 格式化分区
-		a) bios
+		1. bios
 			{{{
 磁盘分区：
 mkfs.ext4 /dev/sda1
@@ -38,7 +38,7 @@ mkfs.ext4 /dev/sda1
 mkswap /dev/sda2
 swapon /dev/sda2
 			}}}
-		b) uefi
+		2. uefi
 			{{{
 ESP分区：
 mkfs.vfat -F32 /dev/sda1
@@ -49,11 +49,11 @@ swapon /dev/sda2
 mkfs.ext4 /dev/sda3
 			}}}
 	5. 挂载文件系统
-		a) bios
+		1. bios
 			{{{
 mount /dev/sda1 /mnt
 			}}}
-		b) uefi
+		2. uefi
 			{{{
 mount /dev/sda3 /mnt
 mkdir -p /mnt/boot/efi
@@ -72,26 +72,26 @@ genfstab -U /mnt >> /mnt/etc/fstab
 		{{{
 arch-chroot /mnt
 		}}}
-		a) 时区配置
+		1. 时区配置
 			{{{
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 			}}}
-		b) 语言环境配置
+		2. 语言环境配置
 			{{{
 修改文件：/etc/locale.gen: 去注释 en_US.UTF-8 UTF-8 以及 zh_CH**的中文编码 这几行
 环境生成：locale-gen
 配置全局环境：
 	编辑文件 /etc/locale.conf 添加 LANG=en_US.UTF-8(也可设置为中文环境)
 			}}}
-		c) 系统名称配置
+		3. 系统名称配置
 			{{{
 /etc/hostname: ArchLinux
 			}}}
-		d) 系统名称与IP对应（局域网中的域名）
+		4. 系统名称与IP对应（局域网中的域名）
 			{{{
 /etc/hosts: 127.0.1.1 ArchLinux.localdomain ArchLinux
 			}}}
-		e) 网络配置
+		5. 网络配置
 			{{{
 pacman -S networkmanager
 pacman -S network-manager-applet
@@ -101,7 +101,7 @@ pacman -S dialog
 
 systemctl enable NetworkManager
 			}}}
-		f) 用户配置
+		6. 用户配置
 			{{{
 修改root密码： passwd
 添加用户：useradd -m -g users -s /bin/bash jett
@@ -112,8 +112,8 @@ pacman -S bash-completion
 
 /etc/sudoers：jett ALL=(ALL) ALL
 			}}}
-		g) 引导程序制作
-			a) bios
+		7. 引导程序制作
+			1. bios
 				{{{
 pacman -S grub
 pacman -S intel-ucode
@@ -121,7 +121,7 @@ pacman -S intel-ucode
 grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 				}}}
-			b) uefi
+			2. uefi
 			{{{
 pacman -S grub
 pacman -S intel-ucode
@@ -130,7 +130,7 @@ pacman -S efibootmgr
 grub-install --efi-directory=/boot/efi --bootloader-id=arch-grub --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
 			}}}
-		h) 退出系统配置
+		8. 退出系统配置
 			{{{
 exit
 umount -R /mnt
