@@ -131,12 +131,13 @@ grub-mkconfig -o /boot/grub/grub.cfg
 			2. uefi
 			{{{
 pacman -S grub
-pacman -S intel-ucode
 pacman -S efibootmgr
+pacman -S intel-ucode
 
-modprobe dm-mod
-
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch_grub --recheck --debug
+x86_64系统:
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+i686系统:
+grub-install --target=i386-efi --efi-directory=/boot/efi --bootloader-id=grub
 
 pacman -S os-prober
 
@@ -190,6 +191,8 @@ reboot
 pacman -S alsa-utils
 pacman -S alsa-firmware
 pacman -S alsa-plugins
+pacman -S pulseaudio
+pacman -S pavucontrol
 
 音量调节快捷键设置：
 升音：amixer set Master 5%+
