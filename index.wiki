@@ -6,6 +6,7 @@
 	5. [[data-struct]]
 	6. [[cpp-primer-plus-6]]
 	7. [[gnuplot-doc]]
+	8. [[assembly]]
 
 
 

@@ -1,0 +1,17 @@
+==== archlinux(x86_64)环境中搭建32位汇编开发环境 ====
+
+	1. GNU汇编器：gas（base-devle:binutils包中）
+	2. GNU连接器：ld（base-devle:binutils包中）
+	3. 安装32位glib库：lib32-glibc
+	4. 简档器：gprof（base-devle:binutils包中）
+		{{{
+gcc -pg test.c -o test
+./test (产生gmon.out简档文件)
+gprof test > result.txt (gprof自动调用gmon.out，产生报告result.txt)
+		}}}
+		
+	5. 汇编程序的编译与链接
+		{{{
+as --32 $^ -o obj.o
+ld --dynamic-linker /lib/ld-linux.so.2 -L/usr/lib32 -lc -m elf_i386 obj.o
+		}}}
