@@ -18,18 +18,52 @@ ld --dynamic-linker /lib/ld-linux.so.2 -L/usr/lib32 -lc -m elf_i386 obj.o
 		
 ==== IA-32平台AT&T汇编语言（Linux） ====
 
-	1. 数据定义
-		1. 数据段
+	- 数据定义
+		- 数据段
 			{{{asm
 ;示例1(数据段)
 .section .data
-	output0:	
-		.ascii "The processor Vendor ID is 'xxxxxxxxxxxx'\n"	
-	values:
-		.int 10, 25, 30, 100
+output:	
+	.ascii "The processor Vendor ID is 'xxxxxxxxxxxx'\n"	
+pi:
+	.float 3.1415926
+sizes:
+	.long 100, 150, 30, 100
 ;示例2(只读数据段)
 .section .rodata
-	output0:	
-		.ascii "The processor Vendor ID is 'xxxxxxxxxxxx'\n"	
+output:	
+	.ascii "The processor Vendor ID is 'xxxxxxxxxxxx'\n"	
 			}}}
 
+ | 命令    | 数据类型                 | 示例                            |
+ |---------|--------------------------|---------------------------------|
+ | .ascii  | 文本字符串               |                                 |
+ | .asciz  | 以空字符结尾的文本字符串 |                                 |
+ | .byte   | 字节值                   |                                 |
+ | .double | 双精度浮点数             |                                 |
+ | .float  | 单精度浮点数             |                                 |
+ | .int    | 32位整数                 |                                 |
+ | .long   | 32位整数(同.int)         |                                 |
+ | .octa   | 16字节整数               |                                 |
+ | .quad   | 8字节整数                |                                 |
+ | .short  | 16位整数                 |                                 |
+ | .single | 单精度浮点数(同.float)   |                                 |
+ | .fill   | 拷贝填充类型             | .fill repeat, size(1), value(0) |
+	
+		- 定义静态符号
+		{{{asm
+;定义
+.equ LINUX_SYS_CALL, 0x80
+;使用
+movl $LINUX_SYS_CALL, %eax
+		}}}
+		
+		- bss段(未初始化数据段block start with symbol)
+		{{{asm
+;定义
+.section .bss
+.comm buffer, 1024
+.lcomm lbuffer, 1024
+		}}}
+		
+	- 数据传送
