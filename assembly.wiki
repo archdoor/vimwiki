@@ -15,3 +15,21 @@ gprof test > result.txt (gprof自动调用gmon.out，产生报告result.txt)
 as --32 $^ -o obj.o
 ld --dynamic-linker /lib/ld-linux.so.2 -L/usr/lib32 -lc -m elf_i386 obj.o
 		}}}
+		
+==== IA-32平台AT&T汇编语言（Linux） ====
+
+	1. 数据定义
+		1. 数据段
+			{{{asm
+;示例1(数据段)
+.section .data
+	output0:	
+		.ascii "The processor Vendor ID is 'xxxxxxxxxxxx'\n"	
+	values:
+		.int 10, 25, 30, 100
+;示例2(只读数据段)
+.section .rodata
+	output0:	
+		.ascii "The processor Vendor ID is 'xxxxxxxxxxxx'\n"	
+			}}}
+
