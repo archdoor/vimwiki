@@ -1,3 +1,11 @@
+
+|                | 指令      | 描述 | 示例 |
+|----------------|-----------|------|------|
+| *数据交换指令* | xchg      |      |      |
+| \/             | bswap     |      |      |
+| \/             | xadd      |      |      |
+| \/             | cmpxchg8b |      |      |
+
 ==== archlinux(x86_64)环境中搭建32位汇编开发环境 ====
 
 	1. GNU汇编器：gas（base-devle:binutils包中）
@@ -20,7 +28,7 @@ ld --dynamic-linker /lib/ld-linux.so.2 -L/usr/lib32 -lc -m elf_i386 obj.o
 
 	- 数据定义
 		- 数据段
-			{{{asm
+			{{{
 ;示例1(数据段)
 .section .data
 output:	
@@ -51,7 +59,7 @@ output:
  | .fill   | 拷贝填充类型             | .fill repeat, size(1), value(0) |
 	
 		- 定义静态符号
-		{{{asm
+		{{{
 ;定义
 .equ LINUX_SYS_CALL, 0x80
 ;使用
@@ -59,7 +67,7 @@ movl $LINUX_SYS_CALL, %eax
 		}}}
 		
 		- bss段(未初始化数据段block start with symbol)
-		{{{asm
+		{{{
 ;定义
 .section .bss
 .comm buffer, 1024
@@ -67,3 +75,24 @@ movl $LINUX_SYS_CALL, %eax
 		}}}
 		
 	- 数据传送
+		{{{
+movl：32位长字值
+movw：16位宽字值
+movb：8位字节值
+movs：字符串内存之间传送
+movm：
+cmov：
+		}}}
+		- 寄存器
+			- 8个通用寄存器：
+				{{{
+eax:
+ebx:
+ecx:
+edx:
+
+edi:
+esi:
+ebp:
+esp:
+				}}}
