@@ -6,6 +6,7 @@
 	5. [[cpp-primer-plus-6]]
 	6. [[gnuplot-doc]]
 	7. [[assembly]]
+	8. [[vim-plugins]]
 
 
 

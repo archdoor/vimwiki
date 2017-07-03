@@ -1,0 +1,4 @@
+==== vim插件： ====
+
+	1. [[YouCompleteMe]]
+	2. CtrlP

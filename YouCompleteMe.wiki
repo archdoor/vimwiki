@@ -1,0 +1,13 @@
+install:
+	1. load:
+		git clone https://github.com/Valloric/YouCompleteMe.git 
+	2. integrity checking:
+		git submodule update --init --recursive
+	3. install:(cmake is needed)
+		a) fast install:
+			pacman -S clang
+			python ./install.py --clang-completer --system-libclang
+		b) complete install:
+			...
+	4. config:
+	
