@@ -1,0 +1,191 @@
+==== 注释： ====
+	1. 行内注释：
+		{{{
+select * from table;   --注释内容
+		}}}
+	2. 整行注释：
+		{{{
+#注释内容
+		}}}
+	3. 多行注释：
+		{{{
+/* 注释内容 */
+		}}}
+		
+==== 创建数据库： ====
+	{{{
+CREATE DATABASE database_name;
+USE database_name;
+	}}}
+==== 创建表： ====
+	1. 自定义表：
+		{{{
+CREATE TABLE table_name
+(
+	field1 data_type [NOT NULL] [PRIMARY KEY],
+	field2 data_type [NOT NULL] [PRIMARY KEY],
+	field3 data_type [NOT NULL] [UNIQUE],
+	field4 data_type [NOT NULL] [DEFAULT]
+);
+CREATE TABLE table_name
+(
+	field1 data_type [NOT NULL],
+	field2 data_type [NOT NULL],
+	field3 data_type [NOT NULL],
+	field4 data_type [NOT NULL],
+primary key (field1, field2)
+);
+		}}}
+	2. 从现有表创建：
+		{{{
+CREATE TABLE new_table_name AS
+SELECT [* | field1, field2, ...]
+FROM table_name [WHERE]
+		}}}
+==== 修改表： ====
+	1. 添加约束：
+		{{{
+主键约束:
+ALTER TABLE table_name ADD CONSTRAINT constraint_name primary key (field1, field2);
+外键约束:
+唯一性约束:
+		}}}
+	2. 修改字段属性：
+		{{{
+ALTER TABLE table_name MODIFY field_name char(20);
+		}}}
+	3. 增加字段：
+		{{{
+ALTER TABLE table_name ADD field_name char(20);
+		}}}
+	4. 删除字段：
+		{{{
+ALTER TABLE table_name DROP COLUMN field_name;
+		}}}
+	5. 插入记录：
+		1. 无字段列表插入：(不安全，易出错)
+			{{{
+INSERT INTO table_name
+VALUES(
+	value1,
+	value2,
+	value3
+);
+			}}}
+		2. 有字段列表插入：(推荐，此方法可插入部分行)
+			{{{
+INSERT INTO table_name
+(
+	field1,
+	field2,
+	field3
+)VALUES(
+	value1,
+	value2,
+	value3
+);
+			}}}
+		3. 检索插入：(推荐，此方法可插入部分行)
+			{{{
+INSERT INTO table_name1
+(
+	field1,
+	field2,
+	field3
+)
+SELECT
+	field1,
+	field2,
+	field3
+FROM table_name2;
+			}}}
+	6. 删除表：
+		{{{
+ALTER TABLE table_name [ restrict|cascade ];
+		}}}
+	7. 重命名表：
+		{{{
+RENAME TABLE table_name1 to new_table_name1[, table_name2 to new_table_name2, ...];
+		}}}
+	
+		
+检索(select):
+	查询表中的所有字段名及类型：
+		select column_name,column_type from information_schema.columns where table_name='talbe1' and table_schema='database name';
+	检索所有字段:
+		select * from table;
+	检索一个或多个字段:
+		select field1[, field2, ...] from table;
+	检索一个或多个不重复字段:
+		select distinct field1[, field2, ...] from table;
+	检索表中前n行数据:
+		select top n * from table;
+	检索表中从第m行开始的n行数据:
+		select * from table limit n offset m;
+		select * from table limit n,m;
+		
+排序检索(order by)：
+	按字段名排序(可按非选择列排序):
+		select field1[, field2, ...] from table order by field1[, field2, ...];
+	按字段位置排序(只能按选择列排序):
+		select field1[, field2, ...] from table order by 1[, 2, 3, ...];
+	升序排序(默认)：	
+		select field1[, field2, ...] from table order by 1 asc[, 2 asc, 3, ...];
+	降序排序：	
+		select field1[, field2, ...] from table order by 1 desc[, 2 desc, 3, ...] ;
+		
+条件过滤检索(where)(同时使用时,order by应放在最后)：
+	等于：
+		select * from table where field1 = value;
+	不等于：
+		select * from table where field1 <> value;
+		select * from table where field1 != value;
+	小于:
+		select * from table where field1 < value;
+	小于等于:
+		select * from table where field1 <= value;
+	不小于:
+		select * from table where field1 !< value;
+	大于:
+		select * from table where field1 > value;
+	大于等于:
+		select * from table where field1 >= value;
+	不大于:
+		select * from table where field1 !> value;
+	区间:
+		select * from table where field1 between value1 and value2;
+	空：
+		select * from table where field1 is null;
+	
+高级条件过滤检索(操作符)：
+	and操作符：
+		select * from table where field1 = value1 and field2 = value2;
+	or操作符：
+		select * from table where field1 = value1 or field2 = value2;
+	and or 组合(and 优先级较高):
+		select * from table where field1 = value1 or field2 = value2 and field3 = value3;
+	and or 组合(避免优先级混乱):
+		select * from table where (field1 = value1 or field2 = value2) and field3 = value3;
+	in操作符：
+		select * from table where field1 in (value1, field2, ...);
+	not操作符：
+		select * from table where not field1 = value;
+		select * from table where not field1 in (value1, field2, ...);
+	
+通配符过滤检索(效率较慢)：
+	like操作符：
+		%通配符(任意多任意字符，但不包含NULL)：
+			select * from table where field1 like 'Fish%';
+		_通配符(单个任意字符)：
+			select * from table where field1 like 'Fish_';
+		[]通配符(字符集)：
+			select * from table where field1 like '[FDP]ish_';
+			select * from table where field1 like '[^FDP]ish_';
+	
+创建计算字段：
+	拼接字段：
+		
+	
+	
+	
+	
