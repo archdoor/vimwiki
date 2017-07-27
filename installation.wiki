@@ -69,7 +69,7 @@ mount -t vfat /dev/sda1 /mnt/boot/efi
 	6. 安装基本程序组
 		{{{
 修改文件：/etc/pacman.d/mirrorlist (把所有中国的源地址移到最前面)
-pacstrap /mnt base
+pacstrap /mnt base base-devel
 		}}}
 	7. 生成磁盘挂载信息文件fstab，便于开机自动挂载，避免再次手动挂载(步骤4)
 		{{{
