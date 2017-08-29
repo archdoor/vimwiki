@@ -1,0 +1,40 @@
+==== linux中svn服务器架设 ====
+	1. 创建版本库目录
+	{{{
+mkdir /var/svn/svnrepos
+	}}}
+	2. 创建svn版本库
+	{{{
+svnadmin create /var/svn/svnrepos/xxxx
+	}}}
+	3. 配置修改
+	{{{
+cd /var/svn/svnrepos/xxxx/conf
+authz：负责账号权限的管理，控制账号是否读写权限
+passwd：负责账号和密码的用户名单管理
+svnserve.conf：svn服务器配置文件
+
+authz末尾添加账户及账户权限：
+[\]
+root = rw
+
+passwd添加账户密码：
+root = 123456
+
+svnserve.conf去掉下列注释：
+anon-access = read
+auth-access = write
+password-db = passwd
+realm = My First Repository
+	}}}
+	4. 防火墙开启
+	{{{
+	}}}
+	5. 启动svn服务器
+	{{{
+svnserve -d -r /var/svn/svnrepos
+	}}}
+	6. 客户端访问
+	{{{
+输入地址：svn://ip地址:3690/xxxx 
+	}}}
