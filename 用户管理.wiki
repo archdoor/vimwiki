@@ -1,0 +1,2 @@
+创建用户：
+	create user 'test'@'%' identified by 'password';

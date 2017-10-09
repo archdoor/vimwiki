@@ -2,6 +2,7 @@
 	1. 创建版本库目录
 	{{{
 mkdir /var/svn/svnrepos
+chmod -R 666 /var/svn/svnrepos
 	}}}
 	2. 创建svn版本库
 	{{{
@@ -34,7 +35,13 @@ realm = My First Repository
 	{{{
 svnserve -d -r /var/svn/svnrepos
 	}}}
-	6. 客户端访问
+	6. 设置开机自启动（Ubuntu）
+	{{{
+创建/etc/init.d/startsvn.d文件:
+#/bin/bash
+svnserve -d -r /var/svn/svnrepos
+	}}}
+	7. 客户端访问
 	{{{
 输入地址：svn://ip地址:3690/xxxx 
 	}}}
