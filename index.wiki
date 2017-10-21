@@ -7,9 +7,8 @@
 	6. [[gnuplot-doc]]
 	7. [[assembly]]
 	8. [[vim-plugins]]
-	9. [[books]]
-	10. [[mysql]]
-	11. [[subversion]]
+	9. [[mysql]]
+	10. [[subversion]]
 
 
 
