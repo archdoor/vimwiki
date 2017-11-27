@@ -9,6 +9,7 @@
 	8. [[vim-plugins]]
 	9. [[mysql]]
 	10. [[subversion]]
+	11. [[shell]]
 
 
 
