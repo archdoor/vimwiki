@@ -1,0 +1,21 @@
+==== libevent安装与使用 ====
+====== 安装 ======
+	1. 下载并解压：
+	{
+	wget http://libevent.org/libevent-2.0.22.tar.gz
+	tar -zxvf libevent-2.0.22-stable.tzr.gz
+	cd libevent-2.0.22-stable
+	}
+	2. 配置安装库的目标路径：
+	{
+	./configure --prefix=/usr
+	}
+	3. 编译安装libevent库：
+	{
+	make
+	sudo make install
+	}
+	4. 检测安装是否成功：
+	{
+	ls -al /usr/lib | grep libevent
+	}
