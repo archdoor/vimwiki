@@ -1,0 +1,15 @@
+
+sudo apt-get install samba
+sudo apt-get install smbclient
+
+[smb-liujuntao]
+	comment = Network Logon Service
+	path = /home/liujuntao/
+	browseable = yes 
+	read only = no
+	create mask = 0755
+	directory mask = 0755
+	
+smbpasswd -a liujuntao
+
+systemctl restart smb.service
