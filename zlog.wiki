@@ -1,0 +1,15 @@
+
+ubuntu 16.04 64位安装:
+
+https://github.com/downloads/HardySimpson/zlog/zlog-latest-stable.tar.gz
+tar -zxvf zlog-latest-stable.tar.gz
+cd zlog-x.x.x/
+make
+sudo make install
+
+
+issues:
+	程序连接时报错： error while loading shared libraries: libzlog.so.1.1:
+	
+	需要安装包lib32z1：sudo apt-get install lib32z1	
+	
