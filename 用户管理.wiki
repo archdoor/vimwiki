@@ -6,6 +6,7 @@
 	
 授权：
 	grant select,update,insert on FwsDb.*  to gsmrlab;
+    grant all privileges on *.* to gsmrlab;
 
 刷新：
 	flush privileges 
