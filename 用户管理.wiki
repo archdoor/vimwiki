@@ -1,2 +1,20 @@
 创建用户：
-	create user 'test'@'%' identified by 'password';
+	create user 'gsmrlab'@'%' identified by 'password';
+
+查看权限：
+	show grants for gsmrlab;
+	
+授权：
+	grant select,update,insert on FwsDb.*  to gsmrlab;
+
+刷新：
+	flush privileges 
+	
+	
+远程登陆：
+	mysql配置：
+		/etc/mysql/mysql.conf.d/mysqld.cnf 注释掉：bind-address        = 127.0.0.1
+	用户设置：
+		update user set host='%' where user='gsmrlab';
+	关闭防火墙：
+		service iptables stop
