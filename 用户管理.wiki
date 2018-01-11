@@ -1,3 +1,5 @@
+{{{
+
 创建用户：
 	create user 'gsmrlab'@'%' identified by 'password';
 
@@ -19,3 +21,4 @@
 		update user set host='%' where user='gsmrlab';
 	关闭防火墙：
 		service iptables stop
+}}}
