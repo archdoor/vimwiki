@@ -1,0 +1,1 @@
+查看网关，DNS，IP，物理地址: nmcli dev show
