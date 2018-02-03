@@ -205,6 +205,7 @@ pacman -S pavucontrol
 [archlinuxcn]
 SigLevel = Optional TrustAll
 Server = http://mirrors.ustc.edu.cn/archlinuxcn/$arch
+Server = http://repo.archlinuxcn.org/$arch
 
 pacman -Syy
 pacman -S archlinuxcn-keyring
