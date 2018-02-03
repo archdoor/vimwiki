@@ -215,6 +215,8 @@ pacman -S fcitx-im
 pacman -S fcitx-configtool
 搜狗拼音输入法：
 pacman -S fcitx-sogoupinyin
+rime輸入法：
+pacman -S fcitx-rime
 		}}}
 	15. 浏览器安装
 		{{{
