@@ -7,9 +7,9 @@ sudo apt-get install smbclient
 	path = /home/liujuntao/
 	browseable = yes 
 	read only = no
-	create mask = 0755
+	create mask = 0644
 	directory mask = 0755
 	
 smbpasswd -a liujuntao
 
-systemctl restart smb.service
+systemctl restart smbd.service

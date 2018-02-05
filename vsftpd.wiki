@@ -1,0 +1,7 @@
+==== FTP服务安装 ====
+
+	1. 安装	
+	{{{
+	sudo apt-get install vsftpd
+	}}}
+	配置
