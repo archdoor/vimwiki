@@ -1,0 +1,19 @@
+A:内网1
+B:公网IP
+C:内网2
+
+
+1. A -> B建立反向通道
+{{{
+	ssh -f -N -R 10000:localhost:22 B_public_host
+  }}}
+  
+  2. B 建立端口转发
+{{{
+ssh -L 7001:localhost:10000 localhost
+  }}}
+  
+  1. C 通过连接 B 简介连接 A
+{{{
+	ssh -p 7001 A_user@B_public_host
+  }}}
