@@ -17,3 +17,16 @@ ssh -L 7001:localhost:10000 localhost
 {{{
 	ssh -p 7001 A_user@B_public_host
   }}}
+  
+  自动建立反向通道shell脚本
+{{{
+#!/bin/bash
+while true;do
+RET=`ps ax | grep "ssh -f -N -R 10000:localhost:22" | grep -v "grep"`
+if [ "$RET" = ""  ]; then
+echo "restart ssh server"
+ssh -f -N -R 10000:localhost:22 lyb@hahalee.3322.org
+fi
+sleep 10
+done
+  }}}
