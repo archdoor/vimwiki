@@ -3,10 +3,6 @@
 	a) 简介
 		1. ~/.ssh/config 文件格式(此处配置两个 ssh 会话：空行隔开)
 		{{{
-Host	*	
-	ServerAliveInterval		30
-	TCPKeepAlive	yes
-		
 Host	test_1	
 	HostName		192.168.88.120
 	Port			22
@@ -18,6 +14,10 @@ Host	test_1
 	Port			22
 	User			username	
 	IdentityFile	~/.ssh/test_2
+	
+Host	*	
+	ServerAliveInterval		30
+	TCPKeepAlive	yes
 		}}}
 		2. 使用方法
 		{{{
@@ -38,9 +38,16 @@ rsa加密方式，在.ssh路径下执行：ssh-keygen -t rsa
 把服务器端公钥test_1.pub内容追加至authorized_keys(没有则新建)
 	cat test_1.pub >> authorized_keys
 			}}}
-		3. 注意事项
-			1. 用密钥的方式连接服务器是需要服务器上的 ssh 支持的，需要 ssh 的配置文件（默认是在 etc/ssh/sshd_config）里的 PubkeyAuthentication 设置成 yes
-			2. 服务器端最好设下 .ssh 目录权限为 700，authorized_keys 权限为 600
+		3. 如果不能自动无密码登陆，则修改/etc/ssh/sshd_config
+			{{{
+RSAAuthentication yes　　
+PubkeyAuthentication yes　　
+AuthorizedKeysFile .ssh/authorized_keys
+			}}}
+		4. 注意事项
+			1. 第一次登陆会询问：远程服务端的指纹是:XXX，是否确定继续登陆
+			2. 用密钥的方式连接服务器是需要服务器上的 ssh 支持的，需要 ssh 的配置文件（默认是在 etc/ssh/sshd_config）里的 PubkeyAuthentication 设置成 yes
+			3. 服务器端最好设下 .ssh 目录权限为 700，authorized_keys 权限为 600
 	
 	
 
