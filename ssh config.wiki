@@ -3,6 +3,10 @@
 	a) 简介
 		1. ~/.ssh/config 文件格式(此处配置两个 ssh 会话：空行隔开)
 		{{{
+Host	*	
+	ServerAliveInterval		30
+	TCPKeepAlive	yes
+		
 Host	test_1	
 	HostName		192.168.88.120
 	Port			22
