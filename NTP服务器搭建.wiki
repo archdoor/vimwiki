@@ -1,0 +1,5 @@
+==== NTP服务器搭建 ====
+
+	1. 安装ntp软件
+       suao apt-get install ntp
+	2. 修改配置文件
