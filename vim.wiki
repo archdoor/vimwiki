@@ -1,0 +1,14 @@
+ ==== 编辑器之神：VIM ====
+ 
+===== 一、vimscript =====
+	
+	[[http://learnvimscriptthehardway.onefloweroneworld.com|Learn Vimscript the Hard Way：英文原版]]
+
+	[[http://learnvimscriptthehardway.onefloweroneworld.com|Learn Vimscript the Hard Way：中文译版]]
+	
+===== 二、插件 =====
+		1. vimwiki:个人wiki
+		2. YouCompleteMe-自动补全
+		3. CtrlP-当前路径文件搜索
+		4. Ag:字符串全局搜索
+
