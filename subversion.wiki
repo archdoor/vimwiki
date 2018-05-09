@@ -2,7 +2,6 @@
 	1. 创建版本库目录
 	{{{
 mkdir /var/svn/svnrepos
-chmod -R 666 /var/svn/svnrepos
 	}}}
 	2. 创建svn版本库
 	{{{
@@ -33,7 +32,7 @@ realm = My First Repository
 	}}}
 	5. 启动svn服务器
 	{{{
-svnserve -d -r /var/svn/svnrepos
+sudo svnserve -d -r /var/svn/svnrepos
 	}}}
 	6. 设置开机自启动（Ubuntu）
 	{{{

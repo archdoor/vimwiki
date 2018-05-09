@@ -10,7 +10,7 @@ C:内网2
   
   2. B 建立端口转发
 {{{
-ssh -g -L 7001:localhost:10000 localhost
+ssh -f -N -g -L 7001:localhost:10000 localhost
   }}}
   
   1. C 通过连接 B 简介连接 A
@@ -23,7 +23,7 @@ ssh -g -L 7001:localhost:10000 localhost
 #!/bin/bash
 while true;do
 RET=`ps ax | grep "ssh -f -N -R 10000:localhost:22" | grep -v "grep"`
-if [ "$RET" = ""  ]; then
+if [ "$RET" = "" ]; then
 echo "restart ssh server"
 ssh -f -N -R 10000:localhost:22 lyb@hahalee.3322.org
 fi
