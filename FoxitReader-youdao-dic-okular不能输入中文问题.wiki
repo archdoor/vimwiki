@@ -1,0 +1,9 @@
+==== linux下的一些软件不能输入中文 ====
+
+	1. 解决办法：
+{{{
+在/etc/profile中加入一下几行:
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+  }}}

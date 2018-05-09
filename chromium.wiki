@@ -1,0 +1,3 @@
+==== chromium浏览器 ====
+
+cVim插件:https://github.com/1995eaton/chromium-vim

@@ -5,3 +5,4 @@
 	3. [[YaHei-consolas-font]]
 	4. [[map windows share directory]]
 	5. [[用键盘操作窗口]]
+	6. [[FoxitReader-youdao-dic-okular不能输入中文问题]]
