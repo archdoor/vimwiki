@@ -1,23 +1,48 @@
- === archdoor.github.io ===
-	1. [[vim]]
-	2. [[ubuntu]]
-	3. [[archlinux]]
-	4. [[vimwiki-doc]] 
-	5. [[pro-git]]
-	6. [[data-struct]]
-	7. [[cpp-primer-plus-6]]
-	8. [[gnuplot-doc]]
-	9. [[assembly]]
-	10. [[vim-plugins]]
-	11. [[mysql]]
-	12. [[subversion]]
-	13. [[shell]]
-	14. [[libevent]]
-	15. [[smaba]]
-	16. [[zlog]]
-	17. [[NTP服务器搭建]]
-	18. [[chromium]]
+%title 个人WIKI笔记
 
+= Contents =
+            - [[#archdoor.github.io|archdoor.github.io]]
+                - [[#archdoor.github.io#[[vim]]|[[vim]]]]
+                - [[#archdoor.github.io#[[ubuntu]]|[[ubuntu]]]]
+                - [[#archdoor.github.io#[[archlinux]]|[[archlinux]]]]
+                - [[#archdoor.github.io#[[vimwiki-doc]]|[[vimwiki-doc]]]]
+                - [[#archdoor.github.io#[[pro-git]]|[[pro-git]]]]
+                - [[#archdoor.github.io#[[data-struct]]|[[data-struct]]]]
+                - [[#archdoor.github.io#[[cpp-primer-plus-6]]|[[cpp-primer-plus-6]]]]
+                - [[#archdoor.github.io#[[gnuplot-doc]]|[[gnuplot-doc]]]]
+                - [[#archdoor.github.io#[[assembly]]|[[assembly]]]]
+                - [[#archdoor.github.io#[[vim-plugins]]|[[vim-plugins]]]]
+                - [[#archdoor.github.io#[[mysql]]|[[mysql]]]]
+                - [[#archdoor.github.io#[[subversion]]|[[subversion]]]]
+                - [[#archdoor.github.io#[[shell]]|[[shell]]]]
+                - [[#archdoor.github.io#[[libevent]]|[[libevent]]]]
+                - [[#archdoor.github.io#[[smaba]]|[[smaba]]]]
+                - [[#archdoor.github.io#[[zlog]]|[[zlog]]]]
+                - [[#archdoor.github.io#[[NTP服务器搭建]]|[[NTP服务器搭建]]]]
+                - [[#archdoor.github.io#[[chromium]]|[[chromium]]]]
+                - [[#archdoor.github.io#[[work]]|[[work]]]]
+                - [[#archdoor.github.io#list of todo items|list of todo items]]
+
+=== archdoor.github.io ===
+==== [[vim]] ====
+==== [[ubuntu]] ====
+==== [[archlinux]] ====
+==== [[vimwiki-doc]] ==== 
+==== [[pro-git]] ====
+==== [[data-struct]] ====
+==== [[cpp-primer-plus-6]] ====
+==== [[gnuplot-doc]] ====
+==== [[assembly]] ====
+==== [[vim-plugins]] ====
+==== [[mysql]] ====
+==== [[subversion]] ====
+==== [[shell]] ====
+==== [[libevent]] ====
+==== [[smaba]] ====
+==== [[zlog]] ====
+==== [[NTP服务器搭建]] ====
+==== [[chromium]] ====
+==== [[work]] ====
 
 
 ==== list of todo items ====
