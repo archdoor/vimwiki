@@ -4,13 +4,15 @@
 ----
 ----
 
-= Contents =
+= 目录索引 =
     - [[#Vimwiki语法手册|Vimwiki语法手册]]
         - [[#Vimwiki语法手册#1. 简介|1. 简介]]
         - [[#Vimwiki语法手册#2. 先决条件配置|2. 先决条件配置]]
         - [[#Vimwiki语法手册#3. 映射|3. 映射]]
             - [[#Vimwiki语法手册#3. 映射#3.1. 全局映射|3.1. 全局映射]]
             - [[#Vimwiki语法手册#3. 映射#3.2. 局部映射|3.2. 局部映射]]
+                - [[#Vimwiki语法手册#3. 映射#3.2. 局部映射#3.2.1. Normal模式:|3.2.1. Normal模式:]]
+                - [[#Vimwiki语法手册#3. 映射#3.2. 局部映射#3.2.2. Insert模式:|3.2.2. Insert模式:]]
             - [[#Vimwiki语法手册#3. 映射#3.3. 文本对象|3.3. 文本对象]]
         - [[#Vimwiki语法手册#4. 命令|4. 命令]]
             - [[#Vimwiki语法手册#4. 命令#4.1. 全局命令|4.1. 全局命令]]
@@ -76,17 +78,114 @@ Vimwiki 是一个 Vim 中的个人 wiki -- 一个有它自己的高亮语法和�
 == 2. 先决条件配置 ==
 
 {{{
-确保你的 vimrc 文件中有如下的设置：
+如果.vimrc 文件中没有如下的设置，Vimwiki 将不能正常工作：
 set nocompatible
 filetype plugin on
 syntax on
-没有这些设置 Vimwiki 将不能正常工作。
 }}}
 
 == 3. 映射 ==
 === 3.1. 全局映射 ===
+
+{{{
+[n]\ww or :VimwikiIndex	--- 打开第n个wiki（默认g:vimwiki_list中的第一个）
+[n]\wt or :VimwikiTabIndex	--- 新标签中打开第n个wiki（默认打开g:vimwiki_list中的第一个）
+\ws or :VimwikiUISelect	--- 列出所有wiki项目，选择序号打开相应wiki
+[n]\wi or :VimwikiDiaryIndex	--- 打开第n个wiki日记索引（默认g:vimwiki_list中的第一个）
+[n]\w\w or :VimwikiMakeDiaryNote	--- 打开第n个wiki当日日记（默认g:vimwiki_list中的第一个）
+[n]\w\t or :VimwikiTabMakeDiaryNote	--- 新标签中打开第n个wiki当日日记（默认打开g:vimwiki_list中的第一个）
+[n]\w\y or :VimwikiMakeYesterdayDiaryNote	--- 打开第n个wiki昨天日记（默认g:vimwiki_list中的第一个）
+}}}
+
 === 3.2. 局部映射 ===
+可以在.vimrc文件中重新定义映射：
+{{{
+    :nmap <Leader>wc <Plug>Vimwiki2HTML
+}}}
+或者在.vim/ftplugin/vimwiki.vim重定义：
+{{{
+    :nmap <silent><buffer> <Leader>wc <Plug>Vimwiki2HTML
+}}}
+*_后者的有点是重定义的映射只对vimwiki有效。_*
+
+==== 3.2.1. Normal模式: ====
+
+{{{
+\wh or :Vimwiki2HTML	--- 当前wiki文件转化成HTML文件
+\whh or :Vimwiki2HTMLBrowse	--- 当前wiki文件转化成HTML文件
+\w\i or :VimwikiDiaryGenerateLinks	--- 更新日记索引(只在日记索引文件中有效)
+<CR> or :VimwikiFollowLink	--- 创建/追踪wiki链接
+<S-CR> or :VimwikiSplitLink	--- 水平分割窗口创建/追踪wiki链接(有些终端中无效，需重映射)
+<C-CR> or :VimwikiVSplitLink	--- 垂直分割窗口创建/追踪wiki链接(有些终端中无效，需重映射)
+<C-S-CR>,<D-CR> or :VimwikiTabnewLink	--- 新标签中创建/追踪wiki链接(有些终端中无效，需重映射)
+<Backspace> or :VimwikiGoBackLink	--- 返回上层wiki
+<Tab> or :VimwikiNextLink	--- 跳转到当前wiki文件下一个链接
+<S-Tab> or :VimwikiPrevLink	--- 跳转到当前wiki文件上一个链接
+\wd or :VimwikiDeleteLink	--- 删除当前wiki文件
+\wr or :VimwikiRenameLink	--- 重命名当前wiki文件
+= or :VimwikiAddHeaderLevel	--- 增加标题等级
+- or :VimwikiRemoveHeaderLevel	--- 减小标题等级
++ or :VimwikiNormalizeLink:VimwikiNormalizeLink	--- 创建链接/增加链接描述
+<C-Space> or :VimwikiToggleListItem	--- List项目中复选框选中开关，项目没有复选框时则添加复选框(一般在TODO List中)
+gl<Space> or :VimwikiRemoveSingleCB	--- 去除List项目中复选框
+gL<Space> or :VimwikiRemoveCBInList	--- 去除List所有同级项目复选框
+glx or :VimwikiToggleRejectedListItem	--- 关闭List项目复选框[✘]
+gln or :VimwikiIncrementListItem	--- 增加List项目复选框完成进度标志[ ][.][o][O][✔]
+glp or :VimwikiDecrementListItem	--- 降低List项目复选框完成进度标志[ ][.][o][O][✔]
+gll or :VimwikiIncreaseLvlSingleItem	--- 增加List项目等级
+gLl or :VimwikiIncreaseLvlWholeItem	--- 增加List项目及其子项目等级
+glh or :VimwikiDecreaseLvlSingleItem	--- 降低List项目等级
+gLh or :VimwikiDecreaseLvlWholeItem	--- 降低List项目及其子项目等级
+glr or :VimwikiRenumberList	--- List项目重新编号
+gLr or :VimwikiRenumberAllLists	--- List项目及其子项目重新编号
+gl* or :VimwikiChangeSymbolTo *	--- 普通行变成*List项目*List项目变成普通行(会和vim中的搜索快捷键*冲突)
+gL* or :VimwikiChangeSymbolInListTo *	--- List项目标识变成*
+gl# or :VimwikiChangeSymbolTo #	--- 普通行变成#List项目#List项目变成普通行
+gL# or :VimwikiChangeSymbolInListTo #	--- List项目标识变成#
+gl- or :VimwikiChangeSymbolTo -	--- 普通行变成-List项目-List项目变成普通行
+gL- or :VimwikiChangeSymbolInListTo -	--- List项目标识变成-
+gl1 or :VimwikiChangeSymbolTo 1	--- 普通行变成1.2.3.List项目1.2.3.List项目变成普通行
+gL1 or :VimwikiChangeSymbolInListTo 1	--- List项目标识变成1.2.3.
+gla or :VimwikiChangeSymbolTo a	--- 普通行变成a)b)c)List项目a)b)c)List项目变成普通行
+gLa or :VimwikiChangeSymbolInListTo a	--- List项目标识变成a)b)c)
+glA or :VimwikiChangeSymbolTo A	--- 普通行变成a)b)c)List项目A)B)C)List项目变成普通行
+gLA or :VimwikiChangeSymbolInListTo A	--- List项目标识变成A)B)C)
+gli or :VimwikiChangeSymbolTo i	--- 普通行变成i)ii)iii)List项目i)ii)iii)List项目变成普通行
+gLi or :VimwikiChangeSymbolInListTo i	--- List项目标识变成i)ii)iii)
+glI or :VimwikiChangeSymbolTo I	--- 普通行变成I)II)III)List项目I)II)III)List项目变成普通行
+gLI or :VimwikiChangeSymbolInListTo I	--- List项目标识变成I)II)III)
+gqq/gww :VimwikiChangeSymbolInListTo	--- 表格格式化
+<A-Left> :VimwikiTableMoveColumnLeft	--- 表格当前列移到左边
+<A-Right> :VimwikiTableMoveColumnRight	--- 表格当前列移到左边
+<C-Up> :VimwikiDiaryPrevDay	--- 打开已经存在的上一天的日记
+<C-Down> :VimwikiDiaryNextDay	--- 打开已经存在的下一天的日记
+
+<2-LeftMouse>	--- 创建/追踪wiki链接(即双击左键 g:vimwiki_use_mouse=1)
+<S-2-LeftMouse>	--- 水平窗口创建/追踪wiki链接(g:vimwiki_use_mouse=1)
+<C-2-LeftMouse>	--- 垂直窗口创建/追踪wiki链接(g:vimwiki_use_mouse=1)
+<RightMouse><LeftMouse>	--- 返回上层wiki(g:vimwiki_use_mouse=1)
+}}}
+
+==== 3.2.2. Insert模式: ====
+
+{{{
+<CR>	--- 跳到表格的下一行单元格，到达末尾时会新建一行
+<Tab>	--- 跳到表格的下一个临近单元格，到达末尾时会新建一行
+
+<CR>	--- 光标在非空List项目中时，跳到下一行并新建项目；光标在空List项目时，一直按回车知道项目标识消失，一般用来结束列表
+<S-CR>	--- 禁止自动生成列表项目，用于创建多行列表项
+<C-T> or :VimwikiIncreaseLvlSingleItem	--- 增加List项目等级
+<C-D> or :VimwikiDecreaseLvlSingleItem	--- 降低List项目等级
+<C-L><C-J> or :VimwikiListNextSymbol	--- 切换下一个List项目标识(-,1,*,I),a))
+<C-L><C-K> or :VimwikiListPrevSymbol	--- 切换上一个List项目标识(-,a),I),*,1)
+<C-L><C-M> or :VimwikiListToggle	--- 删除/添加List项目标识
+}}}
+
+
 === 3.3. 文本对象 ===
+
+
+
 == 4. 命令 ==
 === 4.1. 全局命令 ===
 === 4.2. 局部命令 ===

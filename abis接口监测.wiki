@@ -1,4 +1,4 @@
-= Contents =
+= 目录索引 =
                     - [[#1. 专用信道管理消息：Dedicated Channel Management message|1. 专用信道管理消息：Dedicated Channel Management message]]
                         - [[#1. 专用信道管理消息：Dedicated Channel Management message#CHANNEL ACTIVATION|CHANNEL ACTIVATION]]
 
