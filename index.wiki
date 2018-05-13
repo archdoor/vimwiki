@@ -1,5 +1,6 @@
 %title 个人WIKI笔记
 
+
 === 个人wiki笔记 ===
 
 ----
@@ -24,6 +25,7 @@
 	* [[NTP服务器搭建]]
 	* [[chromium]]
 	* [[work]]
+	* *test*
 
 
 ==== _TODO LIST:_ ====

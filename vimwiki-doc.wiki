@@ -1,5 +1,6 @@
 %title vimwiki语法手册
 
+
 = Vimwiki语法手册 =
 ----
 ----
@@ -17,6 +18,7 @@
         - [[#Vimwiki语法手册#4. 命令|4. 命令]]
             - [[#Vimwiki语法手册#4. 命令#4.1. 全局命令|4.1. 全局命令]]
             - [[#Vimwiki语法手册#4. 命令#4.2. 局部命令|4.2. 局部命令]]
+            - [[#Vimwiki语法手册#4. 命令#4.3. 函数|4.3. 函数]]
         - [[#Vimwiki语法手册#5. Wiki 语法|5. Wiki 语法]]
             - [[#Vimwiki语法手册#5. Wiki 语法#5.1. 字体|5.1. 字体]]
             - [[#Vimwiki语法手册#5. Wiki 语法#5.2. 链接|5.2. 链接]]
@@ -36,13 +38,11 @@
         - [[#Vimwiki语法手册#9. 表格|9. 表格]]
         - [[#Vimwiki语法手册#10. 日记|10. 日记]]
         - [[#Vimwiki语法手册#11. 锚点|11. 锚点]]
+            - [[#Vimwiki语法手册#11. 锚点#11.1 文件之间跳转|11.1 文件之间跳转]]
+            - [[#Vimwiki语法手册#11. 锚点#11.2 文件目录|11.2 文件目录]]
         - [[#Vimwiki语法手册#12. 选项|12. 选项]]
         - [[#Vimwiki语法手册#13. 开发者|13. 开发者]]
         - [[#Vimwiki语法手册#13. 开发者|13. 开发者]]
-            - [[#Vimwiki语法手册#13. 开发者#1. 简介|1. 简介]]
-            - [[#Vimwiki语法手册#13. 开发者#2. 安装条件|2. 安装条件]]
-            - [[#Vimwiki语法手册#13. 开发者#3. 映射|3. 映射]]
-            - [[#Vimwiki语法手册#13. 开发者#4. 命令|4. 命令]]
             - [[#Vimwiki语法手册#13. 开发者#5. Wiki 语法|5. Wiki 语法]]
             - [[#Vimwiki语法手册#13. 开发者#6. 折叠/大纲|6. 折叠/大纲]]
             - [[#Vimwiki语法手册#13. 开发者#7. 占位符|7. 占位符]]
@@ -55,6 +55,7 @@
             - [[#Vimwiki语法手册#13. 开发者#14. 开发者|14. 开发者]]
             - [[#Vimwiki语法手册#13. 开发者#15. 版本更新记录|15. 版本更新记录]]
             - [[#Vimwiki语法手册#13. 开发者#16. 许可证|16. 许可证]]
+    - [[#Generated Links|Generated Links]]
 
 ----
 ----
@@ -106,7 +107,7 @@ syntax on
 {{{
     :nmap <silent><buffer> <Leader>wc <Plug>Vimwiki2HTML
 }}}
-*_后者的有点是重定义的映射只对vimwiki有效。_*
+*_后者的优点是重定义的映射只对vimwiki有效。_*
 
 ==== 3.2.1. Normal模式: ====
 
@@ -183,12 +184,99 @@ gqq/gww :VimwikiChangeSymbolInListTo	--- 表格格式化
 
 
 === 3.3. 文本对象 ===
+{{{
+ah	两标题之间的内容，包含标题和末尾空行
+ih	两标题之间的内容，包含标题和不包含末尾空行
 
+a\	表格中的一个单元格，包含两边的|
+i\	表格中的一个单元格，不包含两边的|
+ac	表格中的一列，包含两边的|
+ic	表格中的一列，不包含两边的|
+
+al	列表中的一个项目，及其子项目
+il	列表中的一个项目
+
+用法：
+	vah 选中两标题之间的内容，包含标题和末尾空行
+	dah 删除两标题之间的内容，包含标题和末尾空行
+	yah 复制两标题之间的内容，包含标题和末尾空行
+	cah 修改两标题之间的内容，包含标题和末尾空行(效果同dah后进入Insert模式)
+}}}
 
 
 == 4. 命令 ==
+
 === 4.1. 全局命令 ===
+{{{
+:VimwikiIndex	--- 打开当前wiki的索引文件
+:VimwikiTabIndex	--- 新标签中打开当前wiki的索引文件 
+:VimwikiUISelect	--- 通过wiki列表打开选中的wiki
+:VimwikiDiaryIndex	--- 打开当前wiki的日记索引文件
+:VimwikiMakeDiaryNote	--- 打开当前wiki的当天日记
+:VimwikiTabMakeDiaryNote	--- 新标签中打开当前wiki的当天日记
+:VimwikiMakeYesterdayDiaryNote	--- 打开当前wiki的昨天日记
+}}}
+
 === 4.2. 局部命令 ===
+{{{
+:VimwikiFollowLink	--- 跟踪/创建链接
+:VimwikiGoBackLink	--- 返回上层wiki文件
+:VimwikiSplitLink	--- 水平分割窗口跟踪/创建链接
+:VimwikiVSplitLink	--- 垂直分割窗口跟踪/创建链接
+:VimwikiTabnewLink	--- 新标签中跟踪/创建链接
+:VimwikiNextLink	--- 查找当前页下一个链接
+:VimwikiPrevLink	--- 查找当前页上一个链接
+:VimwikiGoto linename	--- 跳转到/创建指定链接
+:VimwikiDeleteLink	--- 删除当前wiki文件
+:VimwikiRenameLink	--- 重命名当前wiki文件
+:Vimwiki2HTML		--- 当前wiki文件转化成HTML，支持用户自定义转化脚本(参见vimwiki-option-custom_wiki2html)
+:Vimwiki2HTMLBrowse	--- 当前wiki文件转化成HTML，并在浏览器中打开
+:VimwikiAll2HTML	--- 所有wiki文件转化成HTML
+:VimwikiToggleListItem	--- List项目中复选框选中开关，项目没有复选框时则添加复选框(一般在TODO List中)
+:VimwikiToggleRejectedListItem	--- 关闭List项目复选框[✘]
+:VimwikiListChangeLevel CMD	--- 改变单行列表项目的嵌套等级(CMD是>>,<<)或者项目标识(CMD是*,#,1,-)
+:VimwikiSearch,:VWS /pattern/	--- 当前wiki的所有文件中搜索，使用:lopen :lnext :lprevious查看结果 
+:VimwikiBacklinks,:VWB	--- 当前wiki的所有文件中搜索链接，使用:lopen :lnext :lprevious查看结果 
+:VimwikiTable [cols] [rows]	--- 创建表格(默认2行5列)
+:VimwikiTableMoveColumnLeft,:VimwikiTableMoveColumnRight	--- 左右移动列表的一列
+:VimwikiGenerateLinks	--- 插入所有wiki文件的链接到当前缓冲区(TODO)
+:VimwikiDiaryGenerateLinks	--- 更新日记索引(只在日记索引文件中有效)
+:VimwikiDiaryNextDay	--- 打开已经存在的下一天的日记
+:VimwikiDiaryPrevDay	--- 打开已经存在的上一天的日记
+:VimwikiTOC	--- 创建或更新当前的wiki文件的目录
+:VimwikiCheckLinks	--- 搜索所有wiki文件,检查链接的目标文件以及外部链接文件是否确实存在.并检查索引文件到所有的wiki文件是否可达，并在quickfix窗口中显示结果
+:VimwikiRebuildTags	--- 重建所有更新wiki文件的标签属性文件(TODO)
+:VimwikiRebuildTags!	--- 同VimwikiRebuildTags(TODO)
+:VimwikiSearchTags	---在当前wiki的页面中查找给定标签的所有位置(TODO)
+:VimwikiGenerateTags tagname1 tagname2 ...	--- 创建/更新指向示例对象的所有标签的预览（无参数，则输出所有标签，参见vimwiki-build-tags）
+}}}
+
+=== 4.3. 函数 ===
+{{{
+与vimwiki交互的函数(把大部分命令用函数替换，将是未来的发展趋势)
+
+提示：该部分尚不稳定，以后极有可能得到改善
+
+键映射定义用法：
+nnoremap <C-K> :call vimwiki#base#function_name(arg1, arg2)<CR>
+
+例如追踪链接的函数:
+vimwiki#base#follow_link({split}, {reuse}, {move_cursor})
+参数{split}可以有以下值:
+	'nosplit'       当前窗口打开链接
+	'vsplit'        垂直窗口打开链接
+	'hsplit'        水平窗口打开链接
+	'tab'           新标签中打开链接
+	
+参数{reuse}=1，而且{split}='vsplit'或者{split}='hsplit'时，将会在一个可能已经存在的分割窗口中打开链接，而不是新建一个分割窗口
+
+参数{move_cursor}=1，则光标移到打开链接的窗口，否则不会移动
+
+例如<CR>快捷键的映射
+nnoremap <CR> :call vimwiki#base#follow_link('nosplit', 0, 1)<CR>
+}}}
+
+
 == 5. Wiki 语法 ==
 === 5.1. 字体 ===
 === 5.2. 链接 ===
@@ -202,27 +290,125 @@ gqq/gww :VimwikiChangeSymbolInListTo	--- 表格格式化
 === 5.10. 注释 ===
 === 5.11. 水平线 ===
 === 5.12. 标签 ===
+
+
 == 6. 折叠/大纲 ==
+{{{
+Vimwiki可以根据标题和预格式化块来折叠或显示大纲。另外也可以折叠列表子项目。折叠默认关闭，需要设置g:vimwiki_folding
+如果g:vimwiki_folding='list'，则
+zM --- 折叠当前列表项目及其子项目
+zr --- 每执行一次，展开一层，直至展开所有子项目
+}}}
+
+
 == 7. 占位符 ==
+{{{
+%title Title of the page	--- 页面标题
+%nohtml	--- 禁止wiki文件转化成HTML
+%template name	--- 将已有HTML模板应用到wiki页面，参见vimwiki-option-template_path 
+%date [2017-07-08]	--- wiki文件日期，该值可用于HTML模板，省略参数则使用转化日期，详见vimwiki-option-template_path
+}}}
+
+
 == 8. 列表 ==
 == 9. 表格 ==
+{{{
+使用:VimwikiTable命令创建一个2行5列的表格
+ |   |   |   |   |   |
+ |---|---|---|---|---|
+ |   |   |   |   |   |
+插入模式按<CR>/<Tab>可一次编辑单元格，推出插入模式时，表格自动对齐
+如果想要缩进表格，只需缩进第一行，然后使用gqq/gww对齐表格
+当在Normal模式修改表格后，也可以使用gqq/gww对齐表格
+}}}
+
+
 == 10. 日记 ==
+{{{
+日记功能可帮助你记录日常笔记，你能够非常容易地将分类的日记添加至Vimwiki中，
+只要按下\w\w，即可以当前的日期为名来创建新的笔记，
+这个新创建的笔记文件，会保存在diary目录中。
+
+当在日记索引文件中时，使用:VimwikiDiaryGenerateLinks or \w\i 更新日记索引，内容如下:
+    = Diary =
+
+    == 2011 ==
+
+    === December ===
+        * [[2011-12-09]]
+        * [[2011-12-08]]
+
+如果想要修改月份的显示形式，参考g:vimwiki_diary_months
+
+
+日历集成：
+
+如果你安装了Calendar.vim插件，就可以利用该插件创建日记，使用命令:Calendar，并在相应的日期上敲击<CR>即可创建日记。
+获取地址：http://www.vim.org/scripts/script.php?script_id=52
+相应的github地址：https://github.com/mattn/calendar-vim
+
+可以使用g:vimwiki_use_calendar开关日历的使用
+}}}
+
+
 == 11. 锚点 ==
+=== 11.1 文件之间跳转 ===
+{{{
+每个 标题，标签，粗体文本 都可以作为锚点，跳转到锚点的使用格式是:
+	[[file#anchor]]
+例如Todo.wiki文件有以下内容：
+  = My tasks =
+  :todo-lists:
+  == Home ==
+    - [ ] bathe my dog
+  == Work ==
+    - [ ] beg for *pay rise*
+  == Knitting club ==
+  === Knitting projects ===
+    - [ ] a *funny pig*
+    - [ ] a *scary dog*
+
+如果想从index.wiki文件直接跳到Knitting projects，可以使用：
+	[[Todo#Knitting projects]]
+也可利用粗体字跳转到列表项目：
+	[[Todo#funny pig]]
+也可直接跳到标签：
+	[[Todo#todo-lists]]
+  
+如果文件中有多个名字/属性都相同的锚点，可以使用由层级标题组成的长格式引导到目的锚点，标题之间用#分开：
+	[[Todo#My tasks#Knitting club#Knitting projects#scary dog]]
+如果你不想逐个输入，可以在写完[[Todo#后按<C-X><C-O>，会自动列出所有可选锚点。
+
+单个文件之间的跳转，可以省略文件字段，如：
+	[[#pay rise]]
+	
+}}}
+
+=== 11.2 文件目录 ===
+{{{
+%toc占位符已经弃用，可以使用:VimwikiTOC命令自动在文件顶部生成目录，也可在文件任何位置写如下内容：
+= Contents =
+然后执行:VimwikiTOC命令更新目录，如果设置了vimwiki-option-auto_toc=1，则会自动更新
+如果不想目录显示成Contents，可以通过g:vimwiki_toc_header设置成想要的文字内容
+
+另外可以利用tagbar插件显示侧边栏目录
+Tagbar插件：http://majutsushi.github.io/tagbar/
+然后下载https://raw.githubusercontent.com/vimwiki/utils/master/vwtags.py
+根据文件中的指示完成配置即可。
+}}}
+
+
 == 12. 选项 ==
+{{{
+
+}}}
+
+
 == 13. 开发者 ==
 == 13. 开发者 ==
 
 
 
-    1. 简介([[#1]])
-    2. 安装条件([[#2]])
-    3. 映射([[#3]])
-        1. 全局映射([[#31]])
-        2. 局部映射([[#32]])
-        3. 文本对象([[#33]])
-    4. 命令([[#4]])
-        1. 全局命令([[#41]])
-        2. 局部命令([[#42]])
     5. Wiki 语法([[#5]])
         1. 字体([[#51]])
         2. 链接([[#52]])
@@ -254,202 +440,6 @@ gqq/gww :VimwikiChangeSymbolInListTo	--- 表格格式化
 
 ----
 ----
-=== 1. 简介 ===
-:1:
-
-Vimwiki 是一个 Vim 中的个人 wiki -- 一个有它自己的高亮语法和链接的文本文件。
-
-使用 vimwiki 你可以：
-    - 组织笔记和想法
-	- 管理待办事项列表
-	- 写文档
-	- 写日记
-	- 导出HTML文件
-
-=== 2. 安装条件 ===
-:2:
-
-确保你的 vimrc 文件中有如下的设置：
-	- set nocompatible
-	- filetype plugin on
-	- syntax on
-没有这些设置 Vimwiki 将不能正常工作。
-
-=== 3. 映射 ===
-:3:
-	- 3.1 全局映射
-	:31:
-
-| 快捷键 | 命令                           | 作用                                      | 限制条件 |
-|--------|--------------------------------|-------------------------------------------|----------|
-| n\ww   | :VimwikiIndex                  | 打开第n个wiki的Index文件                  |          |
-| n\wt   | :VimwikiTabIndex               | 在新标签中打开第n个wiki的Index文件        |          |
-| \ws    | :VimwikiUISelect               | 显示wiki列表，以供选择打开                |          |
-| n\wi   | :VimwikiDiaryIndex             | 打开第n个wiki的日记Index文件              |          |
-| n\w\w  | :VimwikiMakeDiaryNote          | 打开第n个wiki的当天日记wiki文件           |          |
-| n\w\t  | :VimwikiTabMakeDiaryNote       | 在新标签中打开第n个wiki的当天日记wiki文件 |          |
-| n\w\y  | :VimwikiMakeYesterdayDiaryNote | 在新标签中打开第n个wiki的当天日记wiki文件 |          |
-
-	- 3.2 局部映射
-	:32:
-
-| 快捷键                  | 命令                                             | 作用                                   | 限制条件                   |
-|-------------------------|--------------------------------------------------|----------------------------------------|----------------------------|
-| 普通模式                |                                                  |                                        |                            |
-| \wh                     | :Vimwiki2HTML                                    | 当前页转换成HTML                       |                            |
-| \whh                    | :Vimwiki2HTMLBrowse                              | 当前页转换成HTML，并打开浏览           |                            |
-| \w\i                    | :VimwikiDiaryGenerateLinks                       | 更新日记域                             | 仅日记索引文件中有效       |
-| <CR>                    | :VimwikiFollowLink                               | 跟踪或创建连接                         |                            |
-| <S-CR>                  | :VimwikiSplitLink                                | 跟踪或创建连接（水平分割窗口中打开）   |                            |
-| <C-CR>                  | :VimwikiVSplitLink                               | 跟踪或创建连接（垂直分割窗口中打开）   |                            |
-| <C-S-CR>,<D-CR>         | :VimwikiTabnewLink                               | 跟踪或创建连接（新标签中打开）         |                            |
-| <Backspace>             | :VimwikiGoBackLink                               | 返回上一页                             |                            |
-| <Tab>                   | :VimwikiNextLink                                 | 跳到当前页的下一个连接                 |                            |
-| <S-Tab>                 | :VimwikiPrevLink                                 | 跳到当前页的上一个连接                 |                            |
-| \wd                     | :VimwikiDeleteLink                               | 删除当前页                             |                            |
-| \wr                     | :VimwikiRenameLink                               | 重命名当前页                           |                            |
-| =                       | :VimwikiAddHeaderLevel                           | 增加标题等级                           |                            |
-| -                       | :VimwikiRemoveHeaderLevel                        | 减小标题等级                           |                            |
-| +                       | :VimwikiNormalizeLink:VimwikiNormalizeLinkVisual | 创建/装饰连接                          |                            |
-| <C-Space>               | :VimwikiToggleListItem                           | 开/关列表项复选框                      |                            |
-| gl<space>               | :VimwikiRemoveSingleCB                           | 去除列表项复选框                       |                            |
-| gL<space>               | :VimwikiRemoveCBInList                           | 去除列表项所有同族复选框               |                            |
-| gll                     | :VimwikiIncreaseLvlSingleItem                    | 提升列表项                             |                            |
-| gLl                     | :VimwikiIncreaseLvlWholeItem                     | 提升列表项及其所有子项                 |                            |
-| glh                     | :VimwikiDecreaseLvlSingleItem                    | 降低列表项                             |                            |
-| gLh                     | :VimwikiDecreaseLvlWholeItem                     | 降低列表项及其所有子项                 |                            |
-| glr                     | :VimwikiRenumberList                             | 当前有序列表重新排序                   |                            |
-| gLr                     | :VimwikiRenumberAllLists                         | 所有有序列表重新排序                   |                            |
-| gl*                     | :VimwikiChangeSymbolTo *                         | 当前 列表项/普通行 变为*列表项         |                            |
-| gL*                     | :VimwikiChangeSymbolInListTo *                   | 当前 列表项 变为*列表项                |                            |
-| gl#                     | :VimwikiChangeSymbolTo #                         | 当前 列表项/普通行 变为#列表项         |                            |
-| gL#                     | :VimwikiChangeSymbolInListTo #                   | 当前 列表项 变为#列表项                |                            |
-| gl-                     | :VimwikiChangeSymbolTo -                         | 当前 列表项/普通行 变为-列表项         |                            |
-| gL-                     | :VimwikiChangeSymbolInListTo -                   | 当前 列表项 变为-列表项                |                            |
-| gl1                     | :VimwikiChangeSymbolTo 1.                        | 当前 列表项/普通行 变为1列表项         |                            |
-| gL1                     | :VimwikiChangeSymbolInListTo 1.                  | 当前 列表项 变为1列表项                |                            |
-| gla                     | :VimwikiChangeSymbolTo a)                        | 当前 列表项/普通行 变为a)列表项        |                            |
-| gLa                     | :VimwikiChangeSymbolInListTo a)                  | 当前 列表项 变为a)列表项               |                            |
-| glA                     | :VimwikiChangeSymbolTo A)                        | 当前 列表项/普通行 变为A)列表项        |                            |
-| gLA                     | :VimwikiChangeSymbolInListTo A)                  | 当前 列表项 变为A)列表项               |                            |
-| gli                     | :VimwikiChangeSymbolTo i)                        | 当前 列表项/普通行 变为i)列表项        |                            |
-| gLi                     | :VimwikiChangeSymbolInListTo i)                  | 当前 列表项 变为i)列表项               |                            |
-| glI                     | :VimwikiChangeSymbolTo I)                        | 当前 列表项/普通行 变为I)列表项        |                            |
-| gLI                     | :VimwikiChangeSymbolInListTo I)                  | 当前 列表项 变为I)列表项               |                            |
-| gqq/gww                 | :                                                | 重新格式化表格（表格修改后没对齐）     |                            |
-| <A-Left>                | :VimwikiTableMoveColumnLeft                      | 当前表格列左移                         |                            |
-| <A-Right>               | :VimwikiTableMoveColumnRight                     | 当前表格列右移                         |                            |
-| <C-Up>                  | :VimwikiDiaryPrevDay                             | 打开前一天的日记连接                   |                            |
-| <C-Down>                | :VimwikiDiaryNextDay                             | 打开下一天的日记连接                   |                            |
-| <2-LeftMouse>           | 双击左键                                         | 跟踪或创建连接                         | g:vimwiki_use_mouse=1      |
-| <S-2-LeftMouse>         | Shift + 双击左键                                 | 跟踪或创建连接（水平分割窗口中打开）   | g:vimwiki_use_mouse=1      |
-| <C-2-LeftMouse>         | Ctrl + 双击左键                                  | 跟踪或创建连接（垂直分割窗口中打开）   | g:vimwiki_use_mouse=1      |
-| <RightMouse><LeftMouse> | 左键/右键                                        | 返回上一页                             | g:vimwiki_use_mouse=1      |
-| 插入模式                |                                                  |                                        |                            |
-| <CR>                    | 表格映射                                         | 跳到同列的下个单元格，尾行则新建一行   | g:vimwiki_table_mappings=1 |
-| <Tab>                   | 表格映射                                         | 跳到下个单元格，尾行则新建一行         | g:vimwiki_table_mappings=1 |
-| <CR>                    | 列表映射                                         | 增加一个新的列表项，多次回车可结束列表 |                            |
-| <S-CR>                  | 列表映射                                         | 不新增列表项（多用于添加多行列表项）   |                            |
-| <C-T>                   | :VimwikiIncreaseLvlSingleItem                    | 提升列表项                             |                            |
-| <C-D>                   | :VimwikiDecreaseLvlSingleItem                    | 降低列表项                             |                            |
-| <C-L><C-J>              | :VimwikiListNextSymbol                           | 切换下一个列表项标识符                 |                            |
-| <C-L><C-K>              | :VimwikiListPrevSymbol                           | 切换上一个列表项标识符                 |                            |
-| <C-L><C-M>              | :VimwikiListToggle                               | 创建/删除列表项标识符                  |                            |
-
-	- 3.3 文本对象
-	:33:
-
-| 文本对象 | 对象描述                               |
-|----------|----------------------------------------|
-| ah       | 一个标题的所有内容（包含末尾的空行）   |
-| ih       | 一个标题的所有内容（不包含末尾的空行） |
-| a\       | 一个单元格（包括单元格边框）           |
-| i\       | 一个单元格（不包括单元格边框）         |
-| ac       | 一列（包括单元格边框）                 |
-| ic       | 一列（不包括单元格边框）               |
-| al       | 一个列表项（包括其子列表项）           |
-| il       | 一个列表项（不包括其子列表项）         |
-使用实例：
-	- vah:选中一段
-	- dah:删除一段
-	- yah:跳到段首
-	- cah:修改一段
-
-
-
-=== 4. 命令 ===
-:4:
-	- 4.1 全局命令
-	:41:
-
-| 命令                           | 作用                                     | 示例 |
-|--------------------------------|------------------------------------------|------|
-| :VimwikiIndex                  | 打开当前wiki的索引文件                   |      |
-| :VimwikiTabIndex               | 在新标签中打开当前wiki的索引文件         |      |
-| :VimwikiUISelect               | 打开选中的wiki的索引文件                 |      |
-| :VimwikiDiaryIndex             | 打开当前wiki的日记索引文件               |      |
-| :VimwikiMakeDiaryNote          | 打开当前wiki的当天日记wiki文件           |      |
-| :VimwikiTabMakeDiaryNote       | 在新标签中打开当前wiki的当天日记wiki文件 |      |
-| :VimwikiMakeYesterdayDiaryNote | 打开当前wiki的前一天日记wiki文件         |      |
-
-	- 4.2 局部命令
-	:42:
-
-| 命令                         | 作用                                                                                                   | 示例                                       |
-|------------------------------|--------------------------------------------------------------------------------------------------------|--------------------------------------------|
-| :VimwikiFollowLink           | 进入/创建链接                                                                                          |                                            |
-| :VimwikiTabnewLink           | 进入/创建链接(新标签中打开)                                                                            |                                            |
-| :VimwikiGoBackLink           | 返回上一页                                                                                             |                                            |
-| :VimwikiSplitLink            | 进入/创建链接(水平分割窗口中打开)                                                                      |                                            |
-| :VimwikiVSplitLink           | 进入/创建链接(垂直分割窗口中打开)                                                                      |                                            |
-| :VimwikiNextLink             | 当前页下一个链接                                                                                       |                                            |
-| :VimwikiPrevLink             | 当前页上一个链接                                                                                       |                                            |
-| :VimwikiGoto                 | 跳到指定参数的链接                                                                                     | :VimwikiGoto HelloWorld                    |
-| :VimwikiDeleteLink           | 删除当前页                                                                                             |                                            |
-| :VimwikiRenameLink           | 重命名当前页                                                                                           |                                            |
-| :Vimwiki2HTML                | 当前页转化为HTML                                                                                       |                                            |
-| :Vimwiki2HTMLBrowse          | 当前页转化为HTML，并打开浏览                                                                           |                                            |
-| :VimwikiAll2HTML             | 当前wiki所有页转化为HTML                                                                               |                                            |
-| :VimwikiToggleListItem       | 开/关列表项复选框                                                                                      |                                            |
-| :VimwikiListChangeLevel      | 修改列表项嵌套等级或者符号                                                                             | :VimwikiListChangeLevel >>/<</*/#/1./-     |
-| :VimwikiSearch/:VWS          | 当前wiki所有文件中查找                                                                                 | :VimwikiSearch/:VWS /pattern/              |
-| :VimwikiBacklinks/:VMB       | 当前wiki所有文件中查找指向当前页的链接                                                                 |                                            |
-| :lopen                       | 显示所有匹配项                                                                                         |                                            |
-| :lnext                       | 下一个匹配项                                                                                           |                                            |
-| :lprevious                   | 上一个匹配项                                                                                           |                                            |
-| :VimwikiTable [5 2]          | 创建表格                                                                                               |                                            |
-| :VimwikiTableMoveColumnLeft  | 当前列左移                                                                                             | <A-Left>                                   |
-| :VimwikiTableMoveColumnRight | 当前列右移                                                                                             | <A-Right>                                  |
-| :VimwikiGenerateLinks        | 将所有wiki文件中的链接插入缓存中                                                                       |                                            |
-| :VimwikiDiaryGenerateLinks   | 更新日记索引文件中的目录域                                                                             |                                            |
-| :VimwikiDiaryNextDay         | 打开下一天日记链接                                                                                     | <C-Down>                                   |
-| :VimwikiDiaryPrevDay         | 打开上一天日记链接                                                                                     | <C-Up>                                     |
-| :VimwikiTOC                  | 创建或更新当前的wiki文件的目录                                                                         |                                            |
-| :VimwikiCheckLinks           | 搜索所有wiki文件,检查链接的目标文件以及外部链接文件是否确实存在.并检查索引文件到所有的wiki文件是否可达 | quickfix窗口中显示                         |
-| :VimwikiRebuildTags          | 重建所有更新wiki文件的标签属性文件                                                                     |                                            |
-| :VimwikiRebuildTags!         | 重建所有wiki文件的标签属性文件                                                                         |                                            |
-| :VimwikiSearchTags           | 在当前wiki的页面中查找给定标签的所有位置                                                               |                                            |
-| :VimwikiGenerateTags         | 创建或更新指向示例对象的所有标签的预览（无参数，则输出所有标签）                                       | :VimwikiGenerateTags tagname1 tagname2 ... |
-
-	- 4.3 函数
-	:43:
-	
-函数与vimwiki进行交互。(大部分命令被函数代替是将来的趋势)。
-警告：目前尚不稳定，待改进。
-
-可用下面的方式将函数映射成快捷键：
-	- nnoremap <C-K> :call vimwiki#base#function_name(arg1, arg2)<CR>
-
-打开链接函数：vimwiki#base#follow_link({split}, {reuse}, {move_cursor})
-	- {split}可有一下值：
-		- 'nosplit':在当前窗口中打开链接
-		- 'vsplit':在垂直分割窗口中打开链接
-		- 'hsplit':在水平分割窗口中打开链接
-		- 'tab':在新标签中打开链接
-	- 如果{reuse}=1,{split}='vsplit'/'hsplit',在已经存在的分割窗口中打开链接，而不是新建分割窗口
-	- 如果{move_cursor}=1，光标转移到打开链接的窗口或标签。否则，光标保留原处
-示例(映射到回车键)：nnoremap <CR> :call vimwiki#base#follow_link('nosplit', 0, 1)<CR>
-
 === 5. Wiki 语法 ===
 :5:
 	- 5.1 字体
@@ -737,3 +727,38 @@ or:
 :15:
 === 16. 许可证 ===
 :16:
+= Generated Links =
+    - [[Cron计划任务]]
+    - [[FoxitReader-youdao-dic-okular不能输入中文问题]]
+    - [[NTP服务器搭建]]
+    - [[OpenVpn]]
+    - [[YaHei-consolas-font]]
+    - [[YouCompleteMe]]
+    - [[abis接口监测]]
+    - [[archlinux]]
+    - [[assembly]]
+    - [[chromium]]
+    - [[cpp-primer-plus-6]]
+    - [[data-struct]]
+    - [[gnuplot-doc]]
+    - [[index]]
+    - [[installation]]
+    - [[libevent]]
+    - [[map windows share directory]]
+    - [[mysql]]
+    - [[pro-git]]
+    - [[shell]]
+    - [[smaba]]
+    - [[ssh config]]
+    - [[ssh反向加转发实现内网穿透远程连接]]
+    - [[subversion]]
+    - [[ubuntu]]
+    - [[vim]]
+    - [[vim-plugins]]
+    - [[vimwiki-doc]]
+    - [[vsftpd]]
+    - [[work]]
+    - [[zlog]]
+    - [[用户管理]]
+    - [[用键盘操作窗口]]
+    - [[网络配置相关]]
