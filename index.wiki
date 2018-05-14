@@ -25,11 +25,10 @@
 	* [[NTP服务器搭建]]
 	* [[chromium]]
 	* [[work]]
-	* *test*
 
 
 ==== _TODO LIST:_ ====
-	* [.] vimwiki语法手册整理
+	* [o] vimwiki语法手册整理
 	* [ ] C++ shell
 	* [ ] Unix环境高级编程
 	* [ ] 设计模式
