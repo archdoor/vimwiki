@@ -1,48 +1,41 @@
 = 目录索引 =
-                    - [[#1. 专用信道管理消息：Dedicated Channel Management message|1. 专用信道管理消息：Dedicated Channel Management message]]
-                        - [[#1. 专用信道管理消息：Dedicated Channel Management message#CHANNEL ACTIVATION|CHANNEL ACTIVATION]]
+        - [[#主叫流程|主叫流程]]
 
-===== 1. 专用信道管理消息：Dedicated Channel Management message =====
+----
+----
 
-	通用帧格式:
-	
-| 组成元素    | 格式 | 长度 |
-|-------------|------|------|
-| 消息鉴别器  | V    | 1    |
-| 消息类型    | V    | 1    |
-| 信道号      | TV   | 2    |
-| information | >    | >    |
+	1. Abis接口的第三次主要包括两部分内容：
+		1. 基站管理（BTS Management, BTSM）
+			主要功能：
+			1. 信道管理：BCH（广播信道）、CCH（控制信道）、DCCH（专用控制信道）
+			2. MS <--> MSC 层三数据透传，如：MM、CM
+		2. 无线资源管理（RRM）
 
-====== CHANNEL ACTIVATION ======
+	2. LAPD按照是否需要纠错（帧校验）分为两种：
+		1. 非证实模式：只传一次，不管接收情况
+		2. 证实模式：
+			* 设置两条消息：SABM（设置异步平衡模式）、UA（无编号证实）
+			* 建立证实模式：发端发一个SABM，收端送一个UA，两遍计数同步，就进入证实模式状态
+			* 释放证实模式：发端发一个DISC，收端送一个UA，证实模式结束
+		
+== 主叫流程 ==
 
-| 组成元素                | 格式 | 长度 |
-|-------------------------|------|------|
-| Message discriminator   | V    | 1    |
-| Message type            | V    | 1    |
-| Channel number          | TV   | 2    |
-| Activation Type         | TV   | 2    |
-| Channel Mode            | TLV  | 8-9  |
-| Channel Identification  | TLV  | 8    |
-| 加密信息                | TLV  | >=3  |
-| 移交参考                | TV   | 2    |
-| BS Power                | TV   | 2    |
-| MS Power                | TV   | 2    |
-| Timing Advance          | TV   | 2    |
-| BS Power Parameters     | TLV  | >=2  |
-| MS Power Parameters     | TLV  | >=2  |
-| Physical Context        | TLV  | >=2  |
-| SACCH Information       | TLV  | >=3  |
-| UIC                     | TLV  | 3    |
-| Main channel reference  | TV   | 2    |
-| MultiRate configuration | TLV  | >=4  |
-| MultiRate Control       | TV   | 2    |
-| Supported Codec Types   | TLV  | >=5  |
-
-	1. 加密信息字段只有采用加密时才存在
-	2. 移交参考只有激活类型是移交时才存在
-	3. 如果BS Power, MS Power and/or Timing Advance字段存在，则是用于初始化发射功率和层1帧头
-	4. 如果激活类型是intra cell channel change，那么Timing Advance字段必须存在
-	5. BS Power Parameters, MS Power Parameters 表明BTS正在对BS,MS进行功率控制 
-	6. Physical Context可选 
-
-
+| MS | >                        | BTS | >                          | BSC | >                        | MSC | >                        | VLR | > |
+|----|--------------------------|-----|----------------------------|-----|--------------------------|-----|--------------------------|-----|---|
+|    | CHANNEL_REQUEST →        | >   |                            | >   |                          | >   |                          | >   |   |
+|    | ←↑↓→                     | >   | CHANNEL_REQUIRED(TA) →     | >   |                          | >   |                          | >   |   |
+|    |                          | >   | ← CHANNEL_ACTIVE           | >   |                          | >   |                          | >   |   |
+|    |                          | >   | CHANNEL_ACTIVE_ACK →       | >   |                          | >   |                          | >   |   |
+|    | ← IMMEDIATE_ASSIGNMENT   | >   | ← IMMEDIATE_ASSIGNMENT/REJ | >   |                          | >   |                          | >   |   |
+|    | CM_SERVICE_REQUEST →     | >   | CM_SERVICE_REQUEST →       | >   | CM_SERVICE_REQUEST →     | >   |                          | >   |   |
+|    | ← AUTHENTICATION_REQUEST | >   | ← AUTHENTICATION_REQUEST   | >   | ← AUTHENTICATION_REQUEST | >   | ← AUTHENTICATION_REQUEST | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
+|    |                          | >   |                            | >   |                          | >   |                          | >   |   |
