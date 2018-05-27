@@ -15,7 +15,6 @@
 	* [[cpp-primer-plus-6]]
 	* [[gnuplot-doc]]
 	* [[assembly]]
-	* [[vim-plugins]]
 	* [[mysql]]
 	* [[subversion]]
 	* [[shell]]
