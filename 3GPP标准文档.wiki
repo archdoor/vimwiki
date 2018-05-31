@@ -1,0 +1,3 @@
+=== 3GPP标准规范文档 ===
+
+按标准号查找： http://www.3gpp.org/ftp/Specs/archive/
