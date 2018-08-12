@@ -1,0 +1,50 @@
+=== 主要语法 ===
+
+1. 过滤主机/IP： 
+	{{{
+抓取所有经过网卡1，目的IP为172.16.7.206的网络数据 
+tcpdump -i eth1 host 172.16.7.206
+	}}}
+2. 过滤端口： 
+	{{{
+抓取所有经过网卡1，目的端口为1234的网络数据 
+tcpdump -i eth1 dst port 1234
+	}}}
+3. 过滤特定协议： 
+	{{{
+tcpdump -i eth1 udp
+	}}}
+4. 抓取本地环路数据包 
+	{{{
+tcpdump -i lo udp 抓取UDP数据
+tcpdump -i lo udp port 1234 抓取端口1234的UDP数据
+tcpdump -i lo port 1234 抓取端口1234的数据 
+	}}}
+5. 特定协议特定端口： 
+	{{{
+抓取所有经过1234端口的UDP网络数据 
+tcpdump udp port 1234
+	}}}
+6. 抓取特定类型的数据包： 
+	{{{
+抓取所有经过网卡1的SYN类型数据包
+tcpdump -i eth1 ‘tcp[tcpflags] = tcp-syn’
+抓取经过网卡1的所有DNS数据包（默认端口） 
+tcpdump -i eth1 udp dst port 53
+	}}}
+7. 逻辑语句过滤： 
+	{{{
+抓取所有经过网卡1，目的网络是172.16，但目的主机不是192.168.1.200的TCP数据 
+tcpdump -i eth1 ‘((tcp) and ((dst net 172.16) and (not dst host 192.168.1.200)))’
+	}}}
+8. 抓包存取： 
+	{{{
+抓取所有经过网卡1，目的主机为172.16.7.206的端口80的网络数据并存储
+tcpdump -i eth1 host 172.16.7.206 and port 80 -w /tmp/xxx.cap
+	}}}
+9. 自动按指定文件大小拆分保存： 
+	{{{
+加上-C参数，按文件大小100M保存
+tcpdump -i eth1 host 172.16.7.206 and port 80 -C 100 -w /tmp/xxx.cap
+	}}}
+

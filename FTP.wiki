@@ -1,0 +1,49 @@
+=== FTP常用命令 ===
+{{{
+	ftp> open 连接 命令
+　　ftp>  to 10.10.22.8 连接主机
+　　ftp> admin 登入名
+　　ftp> passwd 登入密码
+　　连接成功
+　　ftp>  ！ 从 ftp 子系统退出到外壳。
+　　ftp>  ？ 显示 ftp 命令说明。？ 和 help 相同。
+　　ftp>  append 使用当前文档类型配置将本地文档附加到远程电脑上的文档。
+　　ftp>  ascii 将文档传送类型配置为默认的 ASCII。
+　　ftp>  bell 转换响铃以在每个文档传送命令完成后响铃。默认情况下，铃声是关闭的。
+　　ftp>  binary（或bi） 将文档传送类型配置为二进制。
+　　ftp>  bye（或by） 结束和远程电脑的linux中ftp命令参数会话并退出linux中ftp命令参数。
+　　ftp>  cd 更改远程电脑上的工作目录。
+　　ftp>  close 结束和远程服务器的linux中ftp命令参数会话并返回命令解释程式。
+　　ftp>  debug 转换调试。当调试打开时，发送到远程电脑的每个命令都打印，前面是字符串“》”。默认情况下，调试是关闭的。
+　　ftp>  delete 删除远程电脑上的文档。
+　　ftp>  dir 显示远程目录文档和子目录列表。
+　　ftp>  disconnect 从远程电脑断开，保留linux中ftp命令参数提示。
+　　ftp> glob 转换文档名组合。组合允许在内部文档或路径名中使用通配符（*和？）。默认情况下，组合是打开的。
+　　ftp> hash 转换已传输的每个数据块的数字签名 （#） 打印。数据块的大小是2048 字节。默认情况下，散列符号打印是关闭的。
+　　ftp> help 显示linux中ftp命令参数命令说明。
+　　ftp> lcd 更改本地电脑上的工作目录。默认情况下，工作目录是启动linux中ftp命令参数的目录。
+　　ftp> literal 将参数逐字发送到远程linux中ftp命令参数服务器。将返回单个的linux中ftp命令参数回复代码。
+　　ftp> ls 显示远程目录文档和子目录的缩写列表。
+　　ftp> mdelete 删除远程电脑上的文档。
+　　ftp> mdir 显示远程目录文档和子目录列表。能够使用 mdir 指定多个文档。
+　　ftp> mget 使用当前文档传送类型将远程文档复制到本地电脑。
+　　ftp> mkdir 创建远程目录。
+　　ftp> mls 显示远程目录文档和子目录的缩写列表。
+　　ftp> mput 使用当前文档传送类型将本地文档复制到远程电脑上。
+　　ftp> open 和指定的linux中ftp命令参数服务器连接。
+　　ftp> prompt 转换提示。假如关闭提示时 mget 及 mput 传送任何文档，linux中ftp命令参数在多文档传送过程中将提示允许您有选择地检索或存储文档。默认情况下，提示是打开的。
+　　ftp> put 使用当前文档传送类型将本地文档复制到远程电脑上。
+　　ftp> pwd 显示远程电脑上的当前目录。
+　　ftp> quit 结束和远程电脑的linux中ftp命令参数会话并退出linux中ftp命令参数。
+　　ftp> quote 将参数逐字发送到远程linux中ftp命令参数服务器。将返回单个的linux中ftp命令参数回复代码。
+　　ftp> recv 使用当前文档传送类型将远程文档复制到本地电脑。Recv 和 get相同。
+　　ftp> remotehelp 显示远程命令帮助。
+　　ftp> rename 重命名远程文档。
+　　ftp> rmdir 删除远程目录。
+　　ftp> send 使用当前文档传送类型将本地文档复制到远程电脑上。Send 和put 相同。
+　　ftp> status 显示linux中ftp命令参数连接和转换的当前状态。
+　　ftp> trace 转换数据包跟踪。Trace 在运行linux中ftp命令参数命令时显示每个数据包的路由。
+　　ftp> type 配置或显示文档传送类型。
+　　ftp> user 指定远程电脑的用户。
+　　ftp> verbose 转换 verbose 模式。假如打开，将显示任何 linux中ftp命令参数响应。在文档传送完成后，将同时显示和传送效率有关的统计信息。默认情况下，verbose 是打开的。
+}}}
