@@ -1,0 +1,25 @@
+
+==== _TODO LIST:_ ====
+	* [o] vimwiki语法手册整理
+	* [ ] 设计模式
+	* [ ] 数据结构
+	* [ ] C语言
+		* [ ] C语言入门经典
+		* [ ] Primer Plus
+		* [ ] C陷阱与缺陷
+		* [ ] C和指针
+		* [ ] C专家编程
+		* [ ] Unix环境高级编程
+	* [ ] C++语言
+		* [ ] C++ Primer Plus（第6版）
+	* [ ] 算法导论
+	* [ ] 编译原理
+	* [ ] 汇编语言
+		* [ ] 汇编语言 王爽
+		* [ ] 80x86汇编语言程序设计教程
+		* [ ] 汇编语言程序设计 Richard Blum著 马朝晖 等译
+	* [ ] 操作系统
+	* [ ] 计算机网络
+	* [ ] 计算机组成原理
+	* [ ] linux内核代码学习
+	* [ ] HTML&CSS DIV XML JavaScript PS PHP ASP Java Mysql Access

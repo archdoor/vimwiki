@@ -24,41 +24,11 @@
 	* [[NTP服务器搭建]]
 	* [[chromium]]
 	* [[work]]
+	* [[设计模式]]
+	* [[TODO_LIST]]
 
 
 ==== _TODO LIST:_ ====
-	* [o] vimwiki语法手册整理
-	* [ ] C++ shell
-	* [ ] Unix环境高级编程
-	* [ ] 设计模式
-	* [ ] 
-	* [ ] 
-	* [ ] 
-	* [ ] 
-	* [ ] 
-	* [ ] 
-	* [ ] VIM的使用
-	* [ ] 无线安装archlinux
-	* [ ] 汇编语言
-		* [ ] 汇编语言 王爽
-		* [ ] 80x86汇编语言程序设计教程
-		* [ ] 汇编语言程序设计 Richard Blum著 马朝晖 等译
-	* [ ] 操作系统
-	* [ ] linux内核代码学习
-	* [ ] 算法导论
-	* [ ] 编译原理
-	* [ ] C语言
-		* [ ] C语言入门经典
-		* [ ] Primer Plus
-		* [ ] C陷阱与缺陷
-		* [ ] C和指针
-		* [ ] C专家编程
-		* [ ] Unix环境高级编程
-	* [ ] C++语言
-		* [ ] C++ Primer Plus（第6版）
-	* [ ] HTML&CSS DIV XML JavaScript PS PHP ASP Java Mysql Access
-	
-	
 	
 	
 	TODO:
