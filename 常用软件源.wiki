@@ -53,7 +53,7 @@ deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-updates main restrict
 deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse
 deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse
 
-Ubuntu 16.04常用的源列表
+2. Ubuntu 16.04常用的源列表
 （1）阿里云源
 deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
@@ -103,5 +103,4 @@ deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted univ
 deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main multiverse restricted universe
 deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main multiverse restricted universe
 deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-proposed main multiverse restricted universe
-deb http://mirrors.tuna.tsinghdeb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main multiverse restricted universe
-deb-src http://mirrors.tuna.tsi
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main multiverse restricted universe
