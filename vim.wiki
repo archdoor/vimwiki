@@ -1,6 +1,15 @@
+ = 目录索引 =
+                - [[#编辑器之神：VIM|编辑器之神：VIM]]
+                    - [[#编辑器之神：VIM#一、[[vim使用]]|一、[[vim使用]]]]
+                    - [[#编辑器之神：VIM#二、vimscript:一门定制Vim的脚本语言|二、vimscript:一门定制Vim的脚本语言]]
+                    - [[#编辑器之神：VIM#三、自定义配置|三、自定义配置]]
+                        - [[#编辑器之神：VIM#三、自定义配置#状态栏配置|状态栏配置]]
+                    - [[#编辑器之神：VIM#四、插件|四、插件]]
+
  ==== 编辑器之神：VIM ====
  
-===== 一、vimscript:一门定制Vim的脚本语言 =====
+===== 一、[[vim使用]] =====
+===== 二、vimscript:一门定制Vim的脚本语言 =====
 	
 	[[http://learnvimscriptthehardway.onefloweroneworld.com|Learn Vimscript the Hard Way：英文原版]]
 
@@ -8,9 +17,37 @@
 	
 	[[https://www.w3cschool.cn/vim/v1jqyozt.html|Vimscript：W3Cschool]]
 	
-===== 二、插件 =====
-		1. vimwiki:个人wiki
-		2. [[YouCompleteMe-自动补全]]
-		3. CtrlP-当前路径文件搜索
-		4. Ag:字符串全局搜索
+===== 三、自定义配置 =====
+	====== 状态栏配置 ======
+{{{
+我的自定义配置：
+set statusline=%F%m%r%h%w%=\ [ft=%Y]\ %{\"[fenc=\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\"+\":\"\").\"]\"}\ [ff=%{&ff}]\ [asc=%03.3b]\ [hex=%02.2B]\ [pos=%04l,%04v][%p%%]\ [len=%L]
+set laststatus=2
+
+" %F 完整文件路径名
+" %m 当前缓冲被修改标记
+" %r 当前缓冲只读标记
+" %h 帮助缓冲标记
+" %w 预览缓冲标记
+" %Y 文件类型
+" %b ASCII值
+" %B 十六进制值
+" %l 行数
+" %v 列数
+" %p 当前行数占总行数的的百分比
+" %L 总行数
+" %{...} 评估表达式的值，并用值代替
+" %{"[fenc=".(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?"+":"")."]"} 显示文件编码
+" %{&ff} 显示文件类型
+
+" 设置 laststatus = 0 ，不显式状态行
+" 设置 laststatus = 1 ，仅当窗口多于一个时，显示状态行
+" 设置 laststatus = 2 ，总是显式状态行
+}}}
+
+===== 四、插件 =====
+	1. vimwiki:个人wiki
+	2. [[YouCompleteMe-自动补全]]
+	3. CtrlP-当前路径文件搜索
+	4. Ag:字符串全局搜索
 
