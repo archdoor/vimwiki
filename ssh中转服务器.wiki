@@ -1,0 +1,9 @@
+笔记本A: A_IP
+中转服务器: B_IP B_PORT
+目标服务器: C_IP C_PORT
+
+在中转服务器上执行：
+ssh -N -f -g -L B_Port:C_IP:C_PORT B_IP
+
+在笔记本上执行一下命令，可直接连接到C
+ssh -p 2223 B_IP
